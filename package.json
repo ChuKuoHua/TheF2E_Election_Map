@@ -7,7 +7,8 @@
     "dev": "eslint --ext .js,.vue . && cross-env NODE_ENV=dev nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "format": "prettier --write \"**/*.{js,vue}\""
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
