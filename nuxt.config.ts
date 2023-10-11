@@ -3,7 +3,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['@/assets/main.scss'],
-  modules: ['@pinia/nuxt', '@nuxt/content', 'nuxt-lodash'],
+  modules: ['@pinia/nuxt', '@nuxt/content', 'nuxt-lodash', '@nuxt/ui'],
   build: {
     transpile: [/echarts/]
   }
