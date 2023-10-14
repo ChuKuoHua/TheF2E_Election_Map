@@ -1,6 +1,7 @@
 <template>
   <div>
     首頁
+    <button class="btn btn-primary">123</button>
     <chartComponent></chartComponent>
   </div>
 </template>
