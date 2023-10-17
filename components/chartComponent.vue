@@ -15,7 +15,7 @@ import { LabelLayout } from 'echarts/features'
 import { PieChart } from 'echarts/charts'
 import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import VChart from 'vue-echarts'
-import { ref } from 'vue'
+import { getElection, getElectionGroups } from '@/api/election.mjs'
 
 use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent, LabelLayout])
 const { data } = await useAsyncData('/', () => queryContent('/test').find())
@@ -71,6 +71,16 @@ const option = ref({
     left: '15%',
     right: '15%'
   }
+})
+
+const getData = async () => {
+  const data = await getElection('連江縣')
+  const ele = await getElectionGroups()
+  console.log(data, ele)
+}
+
+onMounted(() => {
+  getData()
 })
 </script>
 

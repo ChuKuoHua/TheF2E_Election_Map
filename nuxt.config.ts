@@ -6,5 +6,10 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt', '@nuxt/content', 'nuxt-lodash', '@nuxt/ui'],
   build: {
     transpile: [/echarts/]
+  },
+  pinia: {
+    autoImports: [
+      'defineStore' // import { defineStore } from 'pinia'
+    ]
   }
 })
