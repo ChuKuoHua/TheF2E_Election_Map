@@ -2,8 +2,14 @@
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ['@/assets/main.scss'],
-  modules: ['@pinia/nuxt', '@nuxt/content', 'nuxt-lodash', '@nuxt/ui'],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {}
+    }
+  },
+  css: ['~/assets/main.scss'],
+  modules: ['@pinia/nuxt', '@nuxt/content', 'nuxt-lodash'],
   build: {
     transpile: [/echarts/]
   }
