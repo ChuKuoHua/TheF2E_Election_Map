@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     './components/**/*.{js,vue,ts}',
@@ -10,7 +11,6 @@ export default {
   theme: {
     screens: {
       xs: '270px',
-      // => @media (min-width: 270px) { ... }
       sm: '640px',
       md: '768px',
       lg: '1024px',
