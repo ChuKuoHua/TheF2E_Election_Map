@@ -7,6 +7,11 @@ export default defineNuxtConfig({
   build: {
     transpile: [/echarts/]
   },
+  runtimeConfig: {
+    public: {
+      API_BASE_URL: process.env.API_BASE_URL || ''
+    }
+  },
   pinia: {
     autoImports: [
       'defineStore' // import { defineStore } from 'pinia'

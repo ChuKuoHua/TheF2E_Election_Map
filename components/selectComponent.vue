@@ -8,16 +8,15 @@
 
 <script setup>
 import { useCountyStore } from '@/stores/countyStore.mjs'
-import { getElection } from '@/api/election.mjs'
+import { getCountyElection } from '@/api/election.mjs'
 
 const countyStore = useCountyStore()
 const countiesList = ref([])
-const county = ref('')
+const county = ref('臺南市')
 
 const setCounty = async () => {
   countyStore.county = county.value
-  const data = await getElection(county.value)
-  console.log(data)
+  await getCountyElection(county.value)
 }
 
 onMounted(async () => {

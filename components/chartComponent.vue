@@ -1,84 +1,61 @@
 <template>
   <div>
     <div class="chart-box">
-      <client-only>
-        <v-chart class="chart" :option="option" />
-      </client-only>
+      <div id="testChart" ref="elChart" class="chart"></div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
-import { LabelLayout } from 'echarts/features'
-import { PieChart } from 'echarts/charts'
-import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components'
-import VChart from 'vue-echarts'
-import { getElection, getElectionGroups } from '@/api/election.mjs'
+import { getCountyElection, getElectionGroups } from '@/api/election.mjs'
+import { useSetLBaseChart } from '@/composables/baseChart.mjs'
+import { useCountyStore } from '@/stores/countyStore.mjs'
 
-use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent, LabelLayout])
-const { data } = await useAsyncData('/', () => queryContent('/test').find())
-const result = data.value[0].body
-const xAxisItem = result.map((item) => item.date)
-const yAxisItem = result.map((item) => item.num)
-const option = ref({
-  title: {
-    text: '範例',
-    left: 'left',
-    textStyle: {
-      color: '#DC143C'
-    },
-    subtextStyle: {
-      color: '#008000'
-    }
-  },
-  tooltip: {
-    trigger: 'item'
-  },
-  legend: {
-    data: ['投票數']
-  },
-  xAxis: [
-    {
-      type: 'category',
-      data: xAxisItem,
-      axisPointer: {
-        type: 'shadow'
-      }
-    }
-  ],
-  yAxis: [
-    {
-      type: 'value',
-      name: '投票數'
-    }
-  ],
-  series: [
-    {
-      name: '投票數',
-      type: 'bar',
-      tooltip: {
-        valueFormatter: function (value) {
-          return `${value} 票`
-        }
-      },
-      data: yAxisItem
-    }
-  ],
-  grid: {
-    top: '20%',
-    left: '15%',
-    right: '15%'
-  }
-})
-
+const countyStore = useCountyStore()
+const xAxisData = ref([])
+const elChart = ref(null)
+const chart = ref(null)
+const yAxisData = ref([])
+const electionNumberArray = ref([])
+const countyGetter = computed(() => countyStore.countyGetter || '臺南市')
 const getData = async () => {
-  const data = await getElection('連江縣')
-  const ele = await getElectionGroups()
-  console.log(data, ele)
-}
+  yAxisData.value = []
+  xAxisData.value = []
+  // 取得縣市資料
+  const election = await getCountyElection(countyGetter.value)
+  // 取得候選人資料
+  const candidateList = await getElectionGroups()
+  const electionData = election._value
+  for (const key in electionData) {
+    if (key !== '總　計') {
+      xAxisData.value.push(key)
+      electionNumberArray.value.push(electionData[key])
+    }
+  }
+  const transformedData = useMap(electionNumberArray.value, (obj) => {
+    return useMap(obj, (value) => parseInt(value.replace(',', '')))
+  })
+  const result = useZip(...transformedData)
 
+  result.forEach((item, index) => {
+    yAxisData.value.push({
+      data: item,
+      type: 'bar',
+      name: candidateList.value[`electionGroups${index + 1}`][0]
+    })
+  })
+
+  chart.value = useSetLBaseChart(elChart.value, '測試', xAxisData.value, yAxisData.value, true)
+}
+watch(
+  countyGetter,
+  (name) => {
+    if (name) {
+      getData()
+    }
+  },
+  { deep: true }
+)
 onMounted(() => {
   getData()
 })
