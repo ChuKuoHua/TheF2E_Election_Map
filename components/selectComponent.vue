@@ -12,8 +12,7 @@ import { getCountyElection } from '@/api/election.mjs'
 
 const countyStore = useCountyStore()
 const countiesList = ref([])
-const county = ref('臺南市')
-
+const county = ref(countyStore.countyGetter || '臺南市')
 const setCounty = async () => {
   countyStore.county = county.value
   await getCountyElection(county.value)
