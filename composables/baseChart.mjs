@@ -27,7 +27,10 @@ const setSeries = (data) => {
       series.push({
         name: data[i].name,
         type: data[i].type,
-        data: data[i].data
+        data: data[i].data,
+        itemStyle: {
+          color: data[i].color
+        }
       })
     }
   }
@@ -48,12 +51,12 @@ export function useSetLBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fa
   const option = {
     title: {
       text: title,
-      left: 'left',
+      left: 'center',
       textStyle: {
-        color: '#DC143C'
+        color: 'white'
       },
       subtextStyle: {
-        color: '#008000'
+        color: 'white'
       }
     },
     tooltip: {
@@ -69,25 +72,51 @@ export function useSetLBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fa
       // }
     },
     legend: {
-      left: 'right'
+      left: 80,
+      bottom: 25,
+      textStyle: {
+        color: 'white'
+      }
     },
     dataZoom: [
       {
         type: 'inside', // 內側滑動
         zoomLock: true, // 禁用滾動縮放
         start: 0, // 開始範圍
-        end: 12 // 結束範圍
+        end: xAxisData.length <= 20 && xAxisData.length > 10 ? 40 : xAxisData.length > 20 ? 20 : 100 // 結束範圍
       },
       {
         type: 'slider', // 滑動元件
-        height: 20,
-        show: true, // 是否顯示滑動區塊
+        height: 25,
+        show: zoomShow, // 是否顯示滑動區塊
         showDetail: true, // 是否顯示內容
         // handleSize: 0, // 兩邊縮放按鈕大小
         zoomLock: true, // 禁用滾動縮放
         left: '80', // 元件左側距離
         right: '90', // 元件右側距離
-        brushSelect: false // 是否開啟框選部分區域
+        brushSelect: false, // 是否開啟框選部分區域
+        bottom: 60,
+        textStyle: {
+          color: 'white'
+        },
+        // 滑動區塊背景樣式
+        dataBackground: {
+          lineStyle: {
+            color: 'rgba(11, 11, 11, 0)'
+          },
+          areaStyle: {
+            opacity: 0
+          }
+        },
+        // 滑動區塊選中樣式
+        selectedDataBackground: {
+          lineStyle: {
+            color: 'rgba(255, 0, 0, 0)'
+          },
+          areaStyle: {
+            color: 'rgba(131, 24, 24, 0)'
+          }
+        }
       }
     ],
     xAxis: [
@@ -97,6 +126,7 @@ export function useSetLBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fa
         axisLabel: {
           interval: 0, // 顯示所有標籤
           textStyle: {
+            color: 'white',
             fontSize: 12 // 調整標籤字體大小
           }
         },
@@ -108,14 +138,29 @@ export function useSetLBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fa
     yAxis: [
       {
         type: 'value',
-        name: '投票數'
+        name: '',
+        nameTextStyle: {
+          color: 'white' // 修改字體顏色
+        },
+        splitLine: {
+          lineStyle: {
+            color: 'rgba(238, 233, 233, .5)'
+          }
+        },
+        axisLabel: {
+          show: false,
+          textStyle: {
+            color: 'white'
+          }
+        }
       }
     ],
     series: seriesData,
     grid: {
-      top: '20%',
-      left: '15%',
-      right: '15%'
+      top: '15%',
+      left: '10%',
+      right: '10%',
+      bottom: '35%'
     }
   }
 
