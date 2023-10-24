@@ -99,24 +99,7 @@ export function useSetLBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fa
         textStyle: {
           color: 'white'
         },
-        // 滑動區塊背景樣式
-        dataBackground: {
-          lineStyle: {
-            color: 'rgba(11, 11, 11, 0)'
-          },
-          areaStyle: {
-            opacity: 0
-          }
-        },
-        // 滑動區塊選中樣式
-        selectedDataBackground: {
-          lineStyle: {
-            color: 'rgba(255, 0, 0, 0)'
-          },
-          areaStyle: {
-            color: 'rgba(131, 24, 24, 0)'
-          }
-        }
+        showDataShadow: false // 滑動區塊資料陰影隱藏
       }
     ],
     xAxis: [
