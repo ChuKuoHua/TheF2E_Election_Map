@@ -5,7 +5,7 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import * as d3 from 'd3'
 import * as topojson from 'topojson-client'
 
@@ -14,19 +14,22 @@ const currectCounty = ref(null)
 onMounted(() => {
   // 地圖放大倍率，長寬高設定
   let mercatorScale
-  let screenWidth = document.documentElement.clientWidth
-  let w = screenWidth
+  let w = document.documentElement.clientWidth
   let h = document.documentElement.clientHeight
 
   if (w > 1400) w = w / 2.5
-  let widthHeightProportion = parseFloat((w / h).toFixed(1))
+  const widthHeightProportion = parseFloat((w / h).toFixed(1))
   if (widthHeightProportion > 1) h = h * 2
 
   if (w >= 700) mercatorScale = 11000
   else if (w >= 600) mercatorScale = 9000
   else mercatorScale = 6000
 
-  let svg = d3.select('#Taiwan').attr('width', w).attr('height', h).attr('viewBox', `0 0 ${w} ${h}`)
+  const svg = d3
+    .select('#Taiwan')
+    .attr('width', w)
+    .attr('height', h)
+    .attr('viewBox', `0 0 ${w} ${h}`)
 
   d3.json(`taiwanTopoJSON/taiwan.json`).then((data) => {
     const counties = topojson.feature(data, data.objects.COUNTY_MOI_1090820)
