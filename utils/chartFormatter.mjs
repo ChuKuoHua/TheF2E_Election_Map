@@ -1,10 +1,22 @@
 export function setFormatter(id, params) {
-  let msg = `<p>${params[0]?.name}</p>`
+  let msg = `
+    <p class="mb-3">
+      ${params[0]?.name}
+    </p>
+  `
   switch (id) {
-    case 'testChart':
+    case 'baseChart':
       params.forEach((item) => {
-        msg += `<p>${item.seriesName}: ${item.data}</p>`
+        const num = item.data.value ? item.data.value : item.data
+        msg += `
+        <div class="flex justify-between">
+          <p>${item.seriesName}：</p>
+          <p>${num.toLocaleString()} 票</p>
+        </div>`
       })
-      return msg
+      break
+    default:
+      break
   }
+  return msg
 }

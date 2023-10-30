@@ -2,6 +2,7 @@ import { use, init } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import { LabelLayout } from 'echarts/features'
+import 'echarts/lib/component/markArea'
 import {
   TitleComponent,
   TooltipComponent,
@@ -9,6 +10,7 @@ import {
   DataZoomComponent
 } from 'echarts/components'
 // import { setFormatter } from '@/utils/chartFormatter.mjs'
+import { useCountyStore } from '@/stores/countyStore.mjs'
 
 use([
   CanvasRenderer,
@@ -19,23 +21,6 @@ use([
   DataZoomComponent,
   LineChart
 ])
-
-const setSeries = (data) => {
-  const series = []
-  if (Array.isArray(data)) {
-    for (let i = 0; i < data.length; i++) {
-      series.push({
-        name: data[i].name,
-        type: data[i].type,
-        data: data[i].data,
-        itemStyle: {
-          color: data[i].color
-        }
-      })
-    }
-  }
-  return series
-}
 /**
  *
  * @param dom // DOM 元素
@@ -45,9 +30,45 @@ const setSeries = (data) => {
  * @param {boolean} zoomShow // 是否顯示滾動條
  * @returns
  */
-export function useSetLBaseChart(dom, title, xAxisData, yAxisData, zoomShow = false) {
+export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = false) {
+  const id = dom.getAttribute('id') // DOM id
+  const myChart = init(dom) // 初始畫圖表
+  const countyStore = useCountyStore()
+  const county = ref(xAxisData[0]) // 縣市
+  const district = ref('')
+  const setSeries = (data) => {
+    const series = []
+    if (Array.isArray(data)) {
+      for (let i = 0; i < data.length; i++) {
+        series.push({
+          name: data[i].name,
+          type: data[i].type,
+          data: data[i].data,
+          itemStyle: {
+            color: data[i].color
+          },
+          markArea: {
+            itemStyle: {
+              color: '#e9e7e452'
+            },
+            data: [
+              [
+                {
+                  xAxis: district.value ? district.value : county.value
+                },
+                {
+                  xAxis: district.value ? district.value : county.value
+                }
+              ]
+            ]
+          }
+        })
+      }
+    }
+    return series
+  }
+
   const seriesData = setSeries(yAxisData)
-  const myChart = init(dom)
   const option = {
     title: {
       text: title,
@@ -66,10 +87,10 @@ export function useSetLBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fa
         shadowStyle: {
           color: 'rgba(0, 0, 0, 0.1)'
         }
+      },
+      formatter(params) {
+        return setFormatter(id, params)
       }
-      // formatter(params) {
-      // return setFormatter(dom.getAttribute('id'), params)
-      // }
     },
     legend: {
       left: 80,
@@ -96,10 +117,10 @@ export function useSetLBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fa
         right: '90', // 元件右側距離
         brushSelect: false, // 是否開啟框選部分區域
         bottom: 60,
+        showDataShadow: false, // 滑動區塊資料陰影隱藏
         textStyle: {
           color: 'white'
-        },
-        showDataShadow: false // 滑動區塊資料陰影隱藏
+        }
       }
     ],
     xAxis: [
@@ -148,5 +169,13 @@ export function useSetLBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fa
   }
 
   option && myChart.setOption(option)
+
+  myChart.on('click', (event) => {
+    if (!event.name.includes('區')) {
+      countyStore.county = event.name
+    } else {
+      district.value = event.name
+    }
+  })
   return myChart
 }

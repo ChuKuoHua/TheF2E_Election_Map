@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <div class="flex justify-center">
-      <div id="testChart" ref="elChart" class="chart w-full md:w-3/4 h-80"></div>
-    </div>
+  <div class="flex justify-center">
+    <div id="baseChart" ref="elChart" class="chart w-full md:w-3/4 h-80"></div>
   </div>
 </template>
 
 <script setup>
 import { getCountyElection, getElectionGroups } from '@/api/election.mjs'
-import { useSetLBaseChart } from '@/composables/baseChart.mjs'
+import { useSetBaseChart } from '@/composables/baseChart.mjs'
 import { useCountyStore } from '@/stores/countyStore.mjs'
 
 const countyStore = useCountyStore()
@@ -17,7 +15,7 @@ const elChart = ref(null)
 const chart = ref(null)
 const yAxisData = ref([])
 const electionNumberArray = ref([])
-const countyGetter = computed(() => countyStore.countyGetter || '臺南市')
+const countyGetter = computed(() => countyStore.countyGetter || '中央')
 const color = ['#f68d55', '#6b6be4', '#76bc89']
 const getData = async () => {
   yAxisData.value = []
@@ -35,7 +33,7 @@ const getData = async () => {
     }
   }
   const transformedData = useMap(electionNumberArray.value, (obj) => {
-    return useMap(obj, (value) => parseInt(value.replace(',', '')))
+    return useMap(obj, (value) => parseInt(value.split(',').join('')))
   })
   const result = useZip(...transformedData)
 
@@ -48,7 +46,7 @@ const getData = async () => {
     })
   })
 
-  chart.value = useSetLBaseChart(
+  chart.value = useSetBaseChart(
     elChart.value,
     '各縣市政黨得票數/得票率',
     xAxisData.value,
