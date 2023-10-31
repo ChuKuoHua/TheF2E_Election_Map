@@ -1,4 +1,4 @@
-import { use, init } from 'echarts/core'
+import { use, init, getInstanceByDom } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import { LabelLayout } from 'echarts/features'
@@ -9,9 +9,8 @@ import {
   LegendComponent,
   DataZoomComponent
 } from 'echarts/components'
-// import { setFormatter } from '@/utils/chartFormatter.mjs'
-import { useCountyStore } from '@/stores/countyStore.mjs'
-
+import { setFormatter } from '@/utils/chartFormatter.mjs'
+import { useDistrictStore } from '@/stores/district'
 use([
   CanvasRenderer,
   TitleComponent,
@@ -31,11 +30,13 @@ use([
  * @returns
  */
 export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = false) {
-  const id = dom.getAttribute('id') // DOM id
-  const myChart = init(dom) // 初始畫圖表
-  const countyStore = useCountyStore()
-  const county = ref(xAxisData[0]) // 縣市
-  const district = ref('')
+  let myChart = getInstanceByDom(dom) // 檢查 DOM 是否存在
+  // 不存在就初始畫圖表
+  if (!myChart) {
+    myChart = init(dom)
+  }
+  const districtStore = useDistrictStore()
+  const router = useRouter()
   const setSeries = (data) => {
     const series = []
     if (Array.isArray(data)) {
@@ -46,21 +47,6 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
           data: data[i].data,
           itemStyle: {
             color: data[i].color
-          },
-          markArea: {
-            itemStyle: {
-              color: '#e9e7e452'
-            },
-            data: [
-              [
-                {
-                  xAxis: district.value ? district.value : county.value
-                },
-                {
-                  xAxis: district.value ? district.value : county.value
-                }
-              ]
-            ]
           }
         })
       }
@@ -74,6 +60,7 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
       text: title,
       left: 'center',
       textStyle: {
+        fontWeight: 'normal',
         color: 'white'
       },
       subtextStyle: {
@@ -89,7 +76,7 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
         }
       },
       formatter(params) {
-        return setFormatter(id, params)
+        return setFormatter(params)
       }
     },
     legend: {
@@ -104,7 +91,14 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
         type: 'inside', // 內側滑動
         zoomLock: true, // 禁用滾動縮放
         start: 0, // 開始範圍
-        end: xAxisData.length <= 20 && xAxisData.length > 10 ? 40 : xAxisData.length > 20 ? 20 : 100 // 結束範圍
+        end:
+          xAxisData.length <= 30 && xAxisData.length > 10
+            ? 50
+            : xAxisData.length >= 30 && xAxisData.length <= 50
+            ? 30
+            : xAxisData.length > 50
+            ? 10
+            : 100 // 結束範圍
       },
       {
         type: 'slider', // 滑動元件
@@ -129,10 +123,8 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
         data: xAxisData,
         axisLabel: {
           interval: 0, // 顯示所有標籤
-          textStyle: {
-            color: 'white',
-            fontSize: 12 // 調整標籤字體大小
-          }
+          color: 'white',
+          fontSize: 12 // 調整標籤字體大小
         },
         axisPointer: {
           type: 'shadow'
@@ -153,9 +145,7 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
         },
         axisLabel: {
           show: false,
-          textStyle: {
-            color: 'white'
-          }
+          color: 'white'
         }
       }
     ],
@@ -171,10 +161,9 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
   option && myChart.setOption(option)
 
   myChart.on('click', (event) => {
-    if (!event.name.includes('區')) {
-      countyStore.county = event.name
-    } else {
-      district.value = event.name
+    if (event.name.includes('市') || event.name.includes('縣')) {
+      districtStore.setDistricts('')
+      router.push({ path: `/${event.name}` })
     }
   })
   return myChart
