@@ -9,7 +9,7 @@ import { getCountyElection } from '@/api/election.mjs'
 import { useSetBaseChart } from '@/composables/baseChart.mjs'
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
 import { useDistrictStore } from '@/stores/district.mjs'
-
+import { removeComma } from '@/utils/tool.mjs'
 const props = defineProps({
   id: {
     type: String,
@@ -30,8 +30,8 @@ const chart = ref(null)
 const yAxisData = ref([])
 const electionNumberArray = ref([])
 const county = ref(route.params.countyid || '中央')
-const districtsGetter = computed(() => districtStore.districtsGetter || '')
-const color = ['#f68d55', '#6b6be4', '#76bc89']
+const districtGetter = computed(() => districtStore.districtGetter || '')
+const color = ['#F2854A', '#62A0D5', '#58AC6F']
 // 取得候選人資料
 const candidateList = computed(() => candidateStore.candidatesGetter)
 
@@ -57,7 +57,7 @@ const initHandle = () => {
       districtStore.$subscribe(() => {
         getData()
       })
-      if (Object.keys(districtsGetter.value).length > 0) {
+      if (Object.keys(districtGetter.value).length > 0) {
         getData()
       }
       break
@@ -71,14 +71,14 @@ const chartOptionData = (data) => {
   xAxisData.value = []
   electionNumberArray.value = []
   for (const key in data) {
-    if (key !== districtsGetter.value && key !== '總　計') {
+    if (key !== '總　計') {
       xAxisData.value.push(key)
       electionNumberArray.value.push(data[key])
     }
   }
 
   const transformedData = useMap(electionNumberArray.value, (obj) => {
-    return useMap(obj, (value) => parseInt(value.split(',').join('')))
+    return useMap(obj, (value) => removeComma(value))
   })
   const result = useZip(...transformedData)
 
@@ -94,17 +94,15 @@ const chartOptionData = (data) => {
 
 const getData = async () => {
   let title = ''
-
-  // 取得縣市資料
   if (county.value === '中央') {
     title = '各縣市政黨得票數'
-    const countiesData = await getCountyElection(county.value)
-    await chartOptionData(countiesData)
   } else {
     title = '各行政區得票數'
-    const districtData = await getCountyElection(county.value)
-    await chartOptionData(districtData)
   }
+  // 取得縣市資料
+  const electionData = await getCountyElection(county.value)
+  await chartOptionData(electionData)
+  // echart 生成圖表
   chart.value = useSetBaseChart(elChart.value, title, xAxisData.value, yAxisData.value, true)
 }
 

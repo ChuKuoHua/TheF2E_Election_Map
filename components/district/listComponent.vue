@@ -13,9 +13,9 @@
         :key="item.president"
         class="bg-main text-white border-b mb-3 border-main"
       >
-        <th scope="row" class="pr-6 py-2 font-medium whitespace-nowrap">
+        <td scope="row" class="pr-6 py-2 font-medium whitespace-nowrap">
           <p
-            class="border-l-8 pl-4 py-3"
+            class="border-l-8 pl-4 py-3 text-xl"
             :class="{
               'border-orange-500': item.president === '宋楚瑜',
               'border-blue-500': item.president === '韓國瑜',
@@ -25,9 +25,14 @@
             {{ item.president }} /
             {{ item.vicePresident }}
           </p>
-        </th>
-        <td class="px-6 py-2">{{ item.rate }} %</td>
-        <td class="px-6 py-2">{{ item.number }}</td>
+        </td>
+        <td class="px-6 py-2">
+          <span class="text-2xl">
+            {{ sliceDecimalPoint(item.rate)[0] }}
+          </span>
+          .{{ sliceDecimalPoint(item.rate)[1] }} %
+        </td>
+        <td class="px-6 py-2 text-2xl">{{ item.number }}</td>
       </tr>
     </tbody>
   </table>
@@ -35,21 +40,12 @@
 
 <script setup>
 import { useDistrictStore } from '@/stores/district.mjs'
+import { sliceDecimalPoint } from '@/utils/tool.mjs'
 
 const districtStore = useDistrictStore()
 // 取得行政區資料
 const districtsData = computed(() => districtStore.votesGetter)
-
 onMounted(() => {})
 </script>
 
-<style lang="scss" scoped>
-.chart-box {
-  display: flex;
-  justify-content: center;
-}
-.chart {
-  width: 450px;
-  height: 350px;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -47,6 +47,22 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
           data: data[i].data,
           itemStyle: {
             color: data[i].color
+          },
+          markArea: {
+            // 指定區域範圍已不同顏色顯示
+            itemStyle: {
+              color: '#e9e7e452'
+            },
+            data: [
+              [
+                {
+                  xAxis: districtStore.districtGetter || '' // 已始的 x 軸名稱
+                },
+                {
+                  xAxis: districtStore.districtGetter || '' // 結束的 x 軸名稱
+                }
+              ]
+            ]
           }
         })
       }
@@ -162,8 +178,10 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
 
   myChart.on('click', (event) => {
     if (event.name.includes('市') || event.name.includes('縣')) {
-      districtStore.setDistricts('')
+      districtStore.setDistrict('')
       router.push({ path: `/${event.name}` })
+    } else {
+      districtStore.setDistrict(event.name)
     }
   })
   return myChart

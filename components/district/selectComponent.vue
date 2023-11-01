@@ -14,32 +14,24 @@
 import { getCountyElection } from '@/api/election.mjs'
 import { useDistrictStore } from '@/stores/district.mjs'
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
-
+import { rateHandle } from '@/utils/tool.mjs'
 const districtStore = useDistrictStore()
 const candidateStore = useCandidateStore()
 const route = useRoute()
 const areaList = ref([])
 const county = ref(route.params.countyid)
 const areaOption = ref('')
-const administrativeAreaData = ref('')
+const areaData = ref('')
 // 取得候選人資料
 const candidateList = computed(() => candidateStore.candidatesGetter)
 
+// NOTE 整理行政區資料
 const selectArea = () => {
-  districtStore.setDistricts(areaOption.value)
-
-  const data = administrativeAreaData.value[areaOption.value]
-  let n = 0
-  useMap(data, (obj) => {
-    return (n += parseInt(obj.split(',').join('')))
-  })
-  const stringToNumber = (data) => {
-    return parseInt(data.split(',').join(''))
-  }
+  const data = areaData.value[areaOption.value]
   const array = []
+
   for (const key in candidateList.value) {
-    const num = stringToNumber(data[key])
-    const votesRate = useRound((num / n) * 100, 2)
+    const votesRate = rateHandle(data, data[key])
     array.push({
       president: candidateList.value[key][0],
       vicePresident: candidateList.value[key][1],
@@ -47,12 +39,16 @@ const selectArea = () => {
       number: data[key]
     })
   }
+  districtStore.setDistrict(areaOption.value)
   districtStore.setVotesData(array)
 }
 
+districtStore.$subscribe(() => {
+  areaOption.value = districtStore.district
+})
 onMounted(async () => {
-  administrativeAreaData.value = await getCountyElection(county.value)
-  for (const key in administrativeAreaData.value) {
+  areaData.value = await getCountyElection(county.value)
+  for (const key in areaData.value) {
     if (key !== '總　計') {
       areaList.value.push(key)
     }
