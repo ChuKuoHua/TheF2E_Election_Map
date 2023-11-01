@@ -10,13 +10,11 @@
 </template>
 
 <script setup>
-import { getElectionGroups } from '@/api/election.mjs'
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
 
 const candidateStore = useCandidateStore()
 
-onMounted(async () => {
-  const candidateData = await getElectionGroups()
-  candidateStore.setCandidates(candidateData)
+onMounted(() => {
+  candidateStore.setCandidates()
 })
 </script>
