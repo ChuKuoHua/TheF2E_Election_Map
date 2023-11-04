@@ -8,14 +8,13 @@ export const usePageLoadingStore = defineStore('pageLoading', () => {
       loading.value = true
     } else {
       const elapsedTime = Date.now() - (loadingStartTime || 0)
-      const minimumDelay = 3000 // 最少維持秒數
+      const minimumDelay = 1500 // 最少維持秒數
 
       if (elapsedTime < minimumDelay) {
         //未滿秒數，延遲處理
         const remainingTime = minimumDelay - elapsedTime
 
         setTimeout(() => {
-          console.log('remainingTime', remainingTime)
           loading.value = false
         }, remainingTime)
       } else {
