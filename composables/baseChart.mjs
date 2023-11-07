@@ -10,7 +10,8 @@ import {
   DataZoomComponent
 } from 'echarts/components'
 import { setFormatter } from '@/utils/chartFormatter.mjs'
-import { useDistrictStore } from '@/stores/district'
+import { useDistrictStore } from '@/stores/districtStore.mjs'
+import { removeComma } from '~/utils/tools.mjs'
 use([
   CanvasRenderer,
   TitleComponent,
@@ -20,6 +21,12 @@ use([
   DataZoomComponent,
   LineChart
 ])
+
+const votesHandle = (val) => {
+  const num = removeComma(val)
+  return num / 10000
+}
+
 /**
  *
  * @param dom // DOM 元素
@@ -37,6 +44,7 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
   }
   const districtStore = useDistrictStore()
   const router = useRouter()
+  const textColor = 'white'
   const setSeries = (data) => {
     const series = []
     if (Array.isArray(data)) {
@@ -47,23 +55,23 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
           data: data[i].data,
           itemStyle: {
             color: data[i].color
-          },
-          markArea: {
-            // 指定區域範圍已不同顏色顯示
-            itemStyle: {
-              color: '#e9e7e452'
-            },
-            data: [
-              [
-                {
-                  xAxis: districtStore.districtGetter || '' // 已始的 x 軸名稱
-                },
-                {
-                  xAxis: districtStore.districtGetter || '' // 結束的 x 軸名稱
-                }
-              ]
-            ]
           }
+          // markArea: {
+          //   // 指定區域範圍已不同顏色顯示
+          //   itemStyle: {
+          //     color: '#e9e7e452'
+          //   },
+          //   data: [
+          //     [
+          //       {
+          //         xAxis: districtStore.districtGetter || '' // 已始的 x 軸名稱
+          //       },
+          //       {
+          //         xAxis: districtStore.districtGetter || '' // 結束的 x 軸名稱
+          //       }
+          //     ]
+          //   ]
+          // }
         })
       }
     }
@@ -74,13 +82,15 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
   const option = {
     title: {
       text: title,
+      top: '10%',
       left: 'center',
       textStyle: {
-        fontWeight: 'normal',
-        color: 'white'
+        color: textColor,
+        fontWeight: '300',
+        fontSize: '16'
       },
       subtextStyle: {
-        color: 'white'
+        color: textColor
       }
     },
     tooltip: {
@@ -96,10 +106,11 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
       }
     },
     legend: {
+      show: false,
       left: 80,
       bottom: 25,
       textStyle: {
-        color: 'white'
+        color: textColor
       }
     },
     dataZoom: [
@@ -109,9 +120,9 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
         start: 0, // 開始範圍
         end:
           xAxisData.length <= 30 && xAxisData.length > 10
-            ? 50
-            : xAxisData.length >= 30 && xAxisData.length <= 50
             ? 30
+            : xAxisData.length >= 30 && xAxisData.length <= 50
+            ? 25
             : xAxisData.length > 50
             ? 10
             : 100 // 結束範圍
@@ -121,16 +132,17 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
         height: 25,
         show: zoomShow, // 是否顯示滑動區塊
         showDetail: true, // 是否顯示內容
-        // handleSize: 0, // 兩邊縮放按鈕大小
         zoomLock: true, // 禁用滾動縮放
-        left: '80', // 元件左側距離
-        right: '90', // 元件右側距離
+        left: '70', // 元件左側距離
+        right: '80', // 元件右側距離
         brushSelect: false, // 是否開啟框選部分區域
         bottom: 60,
         showDataShadow: false, // 滑動區塊資料陰影隱藏
         textStyle: {
-          color: 'white'
-        }
+          color: textColor
+        },
+        backgroundColor: 'transparent',
+        fillerColor: '#6AB5EF29'
       }
     ],
     xAxis: [
@@ -139,7 +151,8 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
         data: xAxisData,
         axisLabel: {
           interval: 0, // 顯示所有標籤
-          color: 'white',
+          color: textColor,
+          fontWeight: 'bolder',
           fontSize: 12 // 調整標籤字體大小
         },
         axisPointer: {
@@ -150,26 +163,29 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
     yAxis: [
       {
         type: 'value',
-        name: '',
+        name: '萬票',
         nameTextStyle: {
-          color: 'white' // 修改字體顏色
+          color: textColor, // 修改字體顏色
+          padding: [0, 40, 0, 0]
         },
         splitLine: {
           lineStyle: {
-            color: 'rgba(238, 233, 233, .5)'
+            color: 'rgba(255, 255, 255, .6)'
           }
         },
         axisLabel: {
-          show: false,
-          color: 'white'
+          color: textColor,
+          formatter: (val) => {
+            return votesHandle(val)
+          }
         }
       }
     ],
     series: seriesData,
     grid: {
-      top: '15%',
+      top: '20%',
       left: '10%',
-      right: '10%',
+      right: '12%',
       bottom: '35%'
     }
   }

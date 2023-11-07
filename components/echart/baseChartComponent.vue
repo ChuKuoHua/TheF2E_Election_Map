@@ -1,15 +1,17 @@
 <template>
   <div class="flex justify-center">
-    <div :id="props.id" ref="elChart" class="chart w-full h-80"></div>
+    <div :id="props.id" ref="elChart" class="chart w-full h-96"></div>
   </div>
 </template>
 
 <script setup>
 import { getCountyElection } from '@/api/election.mjs'
+import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { useSetBaseChart } from '@/composables/baseChart.mjs'
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
-import { useDistrictStore } from '@/stores/district.mjs'
-import { removeComma } from '@/utils/tool.mjs'
+import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
+import { useDistrictStore } from '@/stores/districtStore.mjs'
+import { removeComma } from '@/utils/tools.mjs'
 const props = defineProps({
   id: {
     type: String,
@@ -20,8 +22,9 @@ const props = defineProps({
     required: true
   }
 })
-
+const pageLoadingStore = usePageLoadingStore()
 const candidateStore = useCandidateStore()
+const countyElectionStore = useCountyElectionStore()
 const districtStore = useDistrictStore()
 const route = useRoute()
 const xAxisData = ref([])
@@ -74,6 +77,19 @@ const chartOptionData = (data) => {
     if (key !== '總　計') {
       xAxisData.value.push(key)
       electionNumberArray.value.push(data[key])
+    } else {
+      const countyElectionData = []
+      for (const i in candidateList.value) {
+        const votesRate = rateHandle(data[key], data[key][i])
+        countyElectionData.push({
+          president: candidateList.value[i][0],
+          vicePresident: candidateList.value[i][1],
+          rate: votesRate,
+          number: data[key][i]
+        })
+      }
+
+      countyElectionStore.setCountyVotesData(countyElectionData)
     }
   }
 
@@ -93,17 +109,19 @@ const chartOptionData = (data) => {
 }
 
 const getData = async () => {
+  pageLoadingStore.changeLoadingStatus(true)
   let title = ''
   if (county.value === '中央') {
     title = '各縣市政黨得票數'
   } else {
-    title = '各行政區得票數'
+    title = '各鄉鎮市區政黨得票數'
   }
   // 取得縣市資料
   const electionData = await getCountyElection(county.value)
   await chartOptionData(electionData)
   // echart 生成圖表
   chart.value = useSetBaseChart(elChart.value, title, xAxisData.value, yAxisData.value, true)
+  pageLoadingStore.changeLoadingStatus(false)
 }
 
 onMounted(() => {
