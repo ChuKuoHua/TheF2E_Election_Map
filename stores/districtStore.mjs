@@ -7,6 +7,7 @@ export const useDistrictStore = defineStore('districts', () => {
     district.value = payload
   }
   const setVotesData = (payload) => {
+    payload.sort((a, b) => b.rate - a.rate)
     votesData.value = payload
   }
 

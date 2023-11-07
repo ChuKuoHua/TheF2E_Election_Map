@@ -1,11 +1,15 @@
 <template>
-  <div class="w-3/4 mx-auto">
-    <chartComponent :id="'baseChart'" :type="'county'"></chartComponent>
-  </div>
+  <div></div>
 </template>
 
-<script setup>
-import chartComponent from '@/components/echart/baseChartComponent.vue'
-</script>
+<script setup></script>
 
-<style scoped></style>
+<style scoped>
+.icon_box {
+  position: absolute;
+  top: 57px;
+  right: 9.9%;
+  width: 80%;
+  height: 2px;
+}
+</style>

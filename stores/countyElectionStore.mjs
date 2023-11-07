@@ -1,8 +1,18 @@
-import {getCountyElection} from '@/api/election.mjs'
+import { getCountyElection } from '@/api/election.mjs'
 
 export const useCountyElectionStore = defineStore('countyElection', () => {
+  const countiesList = ref('')
   const currentCounty = ref('')
   const countyElectionData = ref({})
+  const countyVotesData = ref([]) // 各縣市總票數資料
+
+  const fetchCountiesList = async () => {
+    countiesList.value = await getCountyElection('中央')
+  }
+  // 撈出所有縣市
+  const counties = computed(() => {
+    return Object.keys(countiesList.value)
+  })
 
   const fetchCountyElection = async (countyName) => {
     currentCounty.value = countyName
@@ -19,11 +29,22 @@ export const useCountyElectionStore = defineStore('countyElection', () => {
     return countyElectionData.value[areaName] || null
   }
 
+  const countyVotesDataGetter = computed(() => countyVotesData.value || [])
+  const setCountyVotesData = (payload) => {
+    payload.sort((a, b) => b.rate - a.rate)
+    countyVotesData.value = payload
+  }
+
   return {
+    countiesList,
     currentCounty,
     countyElectionData,
+    countyVotesDataGetter,
     fetchCountyElection,
+    fetchCountiesList,
+    counties,
     countyAreas,
-    getCountyAreaData
+    getCountyAreaData,
+    setCountyVotesData
   }
 })
