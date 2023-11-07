@@ -22,21 +22,21 @@ import { DistrictListComponent } from '#build/components'; import { pushScopeId 
         </td>
         <td class="py-2">
           <span class="text-2xl">
-            {{ sliceDecimalPoint(item.other)[0] }}
+            {{ sliceRateDecimal(item.other)[0] }}
           </span>
-          .{{ sliceDecimalPoint(item.other)[1] }} %
+          .{{ sliceRateDecimal(item.other)[1] }} %
         </td>
         <td class="py-2">
           <span class="text-2xl">
-            {{ sliceDecimalPoint(item.jmt)[0] }}
+            {{ sliceRateDecimal(item.jmt)[0] }}
           </span>
-          .{{ sliceDecimalPoint(item.jmt)[1] }} %
+          .{{ sliceRateDecimal(item.jmt)[1] }} %
         </td>
         <td class="py-2">
           <span class="text-2xl">
-            {{ sliceDecimalPoint(item.dpp)[0] }}
+            {{ sliceRateDecimal(item.dpp)[0] }}
           </span>
-          .{{ sliceDecimalPoint(item.dpp)[1] }} %
+          .{{ sliceRateDecimal(item.dpp)[1] }} %
         </td>
         <td class="py-2 text-2xl">
           {{ item.total.toLocaleString() }}
@@ -48,8 +48,8 @@ import { DistrictListComponent } from '#build/components'; import { pushScopeId 
 
 <script setup>
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
-import { useDistrictStore } from '@/stores/district.mjs'
-import { totalHandle, rateHandle, sliceDecimalPoint } from '@/utils/tool.mjs'
+import { useDistrictStore } from '@/stores/districtStore.mjs'
+import { totalHandle, rateHandle, sliceRateDecimal } from '@/utils/tools.mjs'
 import { getTownshipElection } from '@/api/election.mjs'
 
 const route = useRoute()
