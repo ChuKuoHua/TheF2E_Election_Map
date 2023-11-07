@@ -1,29 +1,32 @@
 <template>
   <div :class="[{ 'overflow-hidden max-h-screen': loading }]">
-    <ul class="flex py-3 mb-3">
-      <li>
-        <NuxtLink class="bg-red-300 p-3 text-white" to="/">首頁</NuxtLink>
-      </li>
-    </ul>
     <NuxtPage />
     <Transition name="fade">
       <page-loading-component v-show="loading" />
     </Transition>
+    <navbar ref="navbarRef"></navbar>
   </div>
 </template>
 
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
+import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
 
 const pageLoadingStore = usePageLoadingStore()
+const countyElectionStore = useCountyElectionStore()
 const { loading } = storeToRefs(pageLoadingStore)
-
 const candidateStore = useCandidateStore()
+const fetchData = async () => {
+  pageLoadingStore.changeLoadingStatus(true)
+  await countyElectionStore.fetchCountiesList()
+  await candidateStore.setCandidates()
+  pageLoadingStore.changeLoadingStatus(false)
+}
 
 onMounted(() => {
-  candidateStore.setCandidates()
+  fetchData()
 })
 </script>
 
