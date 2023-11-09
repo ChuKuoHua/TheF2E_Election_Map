@@ -42,9 +42,7 @@ import { storeToRefs } from 'pinia'
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
 import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
-definePageMeta({
-  layout: 'theFooter'
-})
+
 const pageLoadingStore = usePageLoadingStore()
 const countyElectionStore = useCountyElectionStore()
 const { loading } = storeToRefs(pageLoadingStore)

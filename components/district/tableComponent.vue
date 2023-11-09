@@ -11,7 +11,7 @@
       <tr
         v-for="item of districtsData"
         :key="item.president"
-        class="text-main-600 border-b mb-3 border-main-400"
+        class="border-b mb-3 border-main-400"
         :class="{
           'text-pfp': item.president === '宋楚瑜',
           'text-kmt': item.president === '韓國瑜',

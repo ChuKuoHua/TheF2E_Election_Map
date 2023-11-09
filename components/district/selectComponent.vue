@@ -2,7 +2,7 @@
   <div class="select">
     <select
       v-model="areaOption"
-      class="border border-main-700 text-main-700 text-sm focus:ring-white block w-full p-2.5 outline-none text-center"
+      class="border border-main-700 text-main-700 text-sm focus:ring-white block w-full p-2.5 outline-none md:text-center"
       @change="selectArea()"
     >
       <option v-for="item in areaList" :key="item" :value="item">
@@ -35,13 +35,13 @@ const selectArea = () => {
   candidateList.value.forEach((item) => {
     const votesRate = rateHandle(data, data[item.id])
     array.push({
+      id: item.id,
       president: item.name,
       vicePresident: item.subName,
       rate: votesRate,
       number: data[item.id]
     })
   })
-
   districtStore.setDistrict(areaOption.value)
   districtStore.setVotesData(array)
 }
@@ -67,15 +67,6 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
-.chart-box {
-  display: flex;
-  justify-content: center;
-}
-.chart {
-  width: 450px;
-  height: 350px;
-}
-
 .select {
   position: relative;
   select {
