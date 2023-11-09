@@ -2,7 +2,7 @@
   <div :class="[{ 'overflow-hidden max-h-screen': loading }]">
     <NuxtPage />
     <Transition name="fade">
-      <pageLoadingComponent v-show="loading" />
+      <page-loading-component v-show="loading" />
     </Transition>
     <navbar ref="navbarRef" />
     <footer-component />
