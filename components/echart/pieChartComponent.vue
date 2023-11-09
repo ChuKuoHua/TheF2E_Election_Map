@@ -11,10 +11,6 @@ const props = defineProps({
   id: {
     type: String,
     required: true
-  },
-  type: {
-    type: String,
-    required: true
   }
 })
 const districtStore = useDistrictStore()

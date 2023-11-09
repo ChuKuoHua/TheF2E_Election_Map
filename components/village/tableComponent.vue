@@ -6,7 +6,7 @@ import { DistrictListComponent } from '#build/components'; import { pushScopeId 
       <tr class="border-b border-white">
         <th class="py-3">村里</th>
         <th v-for="item of candidateList" :key="item" class="py-3">
-          {{ item[0] }}
+          {{ item.name }}
         </th>
         <th class="py-3">總投票數</th>
       </tr>

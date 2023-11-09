@@ -18,10 +18,16 @@ const pageLoadingStore = usePageLoadingStore()
 const countyElectionStore = useCountyElectionStore()
 const { loading } = storeToRefs(pageLoadingStore)
 const candidateStore = useCandidateStore()
+
+const fetchCandidate = async () => {
+  const { data } = await useAsyncData('/', () => queryContent('/candidate').find())
+  candidateStore.setCandidates(data.value[0].body)
+}
+
 const fetchData = async () => {
   pageLoadingStore.changeLoadingStatus(true)
   await countyElectionStore.fetchCountiesList()
-  await candidateStore.setCandidates()
+  await fetchCandidate()
   pageLoadingStore.changeLoadingStatus(false)
 }
 
