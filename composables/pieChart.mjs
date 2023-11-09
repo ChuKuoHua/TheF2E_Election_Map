@@ -24,11 +24,10 @@ use([
  *
  * @param dom // DOM 元素
  * @param {string} title // 標題
- * @param {array} xAxisData // x 軸資料
- * @param {array} yAxisData // y 軸資料
+ * @param {array} axisData // y 軸資料
  * @returns
  */
-export function useSetPieChart(dom, title, xAxisData, yAxisData) {
+export function useSetPieChart(dom, title, axisData) {
   let myChart = getInstanceByDom(dom) // 檢查 DOM 是否存在
   // 不存在就初始畫圖表
   if (!myChart) {
@@ -44,9 +43,10 @@ export function useSetPieChart(dom, title, xAxisData, yAxisData) {
     return series
   }
 
-  const seriesData = setSeries(yAxisData)
+  const seriesData = setSeries(axisData)
   const option = {
     title: {
+      show: false,
       text: title,
       left: 'center',
       textStyle: {
