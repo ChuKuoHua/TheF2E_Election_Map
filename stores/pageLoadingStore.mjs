@@ -1,5 +1,7 @@
 export const usePageLoadingStore = defineStore('pageLoading', () => {
   const loading = ref(false)
+  const appLoading = ref(false)
+  const pageLoading = ref(false)
   let loadingStartTime = null
 
   const changeLoadingStatus = (status) => {
@@ -23,5 +25,11 @@ export const usePageLoadingStore = defineStore('pageLoading', () => {
     }
   }
 
-  return { loading, changeLoadingStatus }
+  // 判斷 loading 是否變更
+  const showLoading = computed(() => appLoading.value || pageLoading.value)
+  watch(showLoading, (newValue) => {
+    changeLoadingStatus(newValue)
+  })
+
+  return { loading, appLoading, pageLoading }
 })

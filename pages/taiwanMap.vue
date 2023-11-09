@@ -11,9 +11,9 @@ const pageLoadingStore = usePageLoadingStore()
 const countyElectionStore = useCountyElectionStore()
 
 async function fetchData() {
-  pageLoadingStore.changeLoadingStatus(true)
+  pageLoadingStore.pageLoading = true
   await countyElectionStore.fetchCountyElection('中央')
-  pageLoadingStore.changeLoadingStatus(false)
+  pageLoadingStore.pageLoading = false
 }
 
 // 22縣市票數獲勝者判斷
@@ -51,9 +51,11 @@ onMounted(() => {
   }
 
   path:hover,
-  path.active {
+  path.active,
+  rect:hover {
     transform: translate(-1px, -2px);
-    filter: brightness(1.1);
+    filter: brightness(0.9);
+    cursor: pointer;
   }
 }
 </style>
