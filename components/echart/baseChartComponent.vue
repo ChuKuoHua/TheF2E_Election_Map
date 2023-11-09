@@ -5,8 +5,6 @@
 </template>
 
 <script setup>
-import { getCountyElection } from '@/api/election.mjs'
-import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
 import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { useSetBaseChart } from '@/composables/baseChart.mjs'
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
@@ -25,7 +23,6 @@ const props = defineProps({
 const candidateStore = useCandidateStore()
 const countyElectionStore = useCountyElectionStore()
 const districtStore = useDistrictStore()
-const pageLoadingStore = usePageLoadingStore()
 const route = useRoute()
 const xAxisData = ref([])
 const elChart = ref(null)
@@ -42,7 +39,6 @@ const router = useRouter()
 
 // NOTE 初始事件
 const initHandle = () => {
-  pageLoadingStore.changeLoadingStatus(true)
   // 監聽 districtStore 的 state 是否已取得資料
   districtStore.$subscribe(() => {
     getData()
@@ -97,7 +93,7 @@ const getData = async () => {
     title = '各鄉鎮市區政黨得票數'
   }
   // 取得縣市資料
-  const electionData = await getCountyElection(county.value)
+  const electionData = countyElectionStore.countyElectionData
   if (typeof electionData !== 'object') {
     router.push({ path: `/` })
     return
@@ -105,7 +101,6 @@ const getData = async () => {
   await chartOptionData(electionData)
   // echart 生成圖表
   chart.value = useSetBaseChart(elChart.value, title, xAxisData.value, yAxisData.value, true)
-  pageLoadingStore.changeLoadingStatus(false)
 }
 
 onMounted(() => {

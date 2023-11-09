@@ -65,11 +65,24 @@ import areaTableComponent from '@/components/district/tableComponent.vue'
 import tableComponent from '@/components/village/tableComponent.vue'
 import chartComponent from '@/components/echart/baseChartComponent.vue'
 import pieChartComponent from '@/components/echart/pieChartComponent.vue'
+import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
+import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
+
+const pageLoadingStore = usePageLoadingStore()
+const countyElectionStore = useCountyElectionStore()
 const router = useRouter()
+const route = useRoute()
+const county = ref(route.params.countyid)
+
 const comeback = () => {
   router.push({ path: `/` })
 }
-onMounted(async () => {})
+
+onMounted(async () => {
+  pageLoadingStore.changeLoadingStatus(true)
+  await countyElectionStore.fetchCountyElection(county.value)
+  pageLoadingStore.changeLoadingStatus(false)
+})
 </script>
 
 <style lang="scss" scoped>
