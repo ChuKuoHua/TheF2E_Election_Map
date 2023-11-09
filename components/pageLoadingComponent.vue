@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-[#2C3735] fixed top-0 left-0 h-screen w-screen flex justify-center flex-col items-center"
+    class="bg-[#2C3735] fixed top-0 left-0 h-screen w-screen flex justify-center flex-col items-center z-50"
   >
     <div class="text-3xl text-white pb-7 tracking-widest">
       <div class="loader"></div>
