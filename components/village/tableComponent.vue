@@ -95,7 +95,7 @@ const nextPage = () => {
   page.value = page.value + 1
 }
 const getTownshipData = async () => {
-  pageLoadingStore.changeLoadingStatus(true)
+  pageLoadingStore.pageLoading = true
   const data = await getTownshipElection(county.value, district.value)
   townshipList.value = Object.entries(data)
     .reduce((newItem, item) => {
@@ -111,7 +111,7 @@ const getTownshipData = async () => {
     }, [])
     .sort((a, b) => b.total - a.total)
   totalPages.value = Math.ceil(townshipList.value.length / rows.value)
-  pageLoadingStore.changeLoadingStatus(false)
+  pageLoadingStore.pageLoading = false
 }
 watch(district, () => {
   initPage()

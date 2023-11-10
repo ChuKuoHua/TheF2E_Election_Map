@@ -25,7 +25,7 @@ const candidateStore = useCandidateStore()
 const fetchData = async () => {
   pageLoadingStore.appLoading = true
   await countyElectionStore.fetchCountiesList()
-  candidateStore.setCandidates()
+  await candidateStore.setCandidates()
   pageLoadingStore.appLoading = false
 }
 
