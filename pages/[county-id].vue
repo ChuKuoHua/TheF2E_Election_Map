@@ -79,9 +79,9 @@ const comeback = () => {
 }
 
 onMounted(async () => {
-  pageLoadingStore.changeLoadingStatus(true)
+  pageLoadingStore.pageLoading = true
   await countyElectionStore.fetchCountyElection(county.value)
-  pageLoadingStore.changeLoadingStatus(false)
+  pageLoadingStore.pageLoading = false
 })
 </script>
 
