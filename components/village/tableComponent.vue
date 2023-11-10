@@ -1,6 +1,6 @@
 <template>
   <table class="w-full text-sm text-left text-main-700">
-    <thead class="text-xs text-white uppercase bg-main-700">
+    <thead class="text-lg text-white uppercase bg-main-700">
       <tr class="border-b pr-6">
         <th class="px-6 py-3">村里</th>
         <th v-for="item of candidateList" :key="item" class="px-6 py-3">
@@ -14,24 +14,24 @@
         :key="item.name"
         class="bg-main border-b mb-3 border-main"
       >
-        <td class="px-6 py-2 text-xl">
+        <td class="px-6 py-2 text-lg">
           {{ item.name }}
         </td>
-        <td class="px-6 py-2">
-          <span class="text-2xl">
+        <td class="px-6 py-2 text-center">
+          <span class="text-xl">
             {{ sliceRateDecimal(item.dpp)[0] }}
           </span>
           .{{ sliceRateDecimal(item.dpp)[1] }} %
         </td>
-        <td class="px-6 py-2">
-          <span class="text-2xl">
+        <td class="px-6 py-2 text-center">
+          <span class="text-xl">
             {{ sliceRateDecimal(item.jmt)[0] }}
           </span>
           .{{ sliceRateDecimal(item.jmt)[1] }} %
         </td>
 
-        <td class="px-6 py-2">
-          <span class="text-2xl">
+        <td class="px-6 py-2 text-center">
+          <span class="text-xl">
             {{ sliceRateDecimal(item.other)[0] }}
           </span>
           .{{ sliceRateDecimal(item.other)[1] }} %
@@ -50,15 +50,10 @@
 <script setup>
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
 import { useDistrictStore } from '@/stores/districtStore.mjs'
-import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
 import { totalHandle, rateHandle, sliceRateDecimal } from '@/utils/tools.mjs'
-import { getTownshipElection } from '@/api/election.mjs'
 
-const route = useRoute()
-const county = ref(route.params.countyid)
 const districtStore = useDistrictStore()
 const candidateStore = useCandidateStore()
-const pageLoadingStore = usePageLoadingStore()
 const candidateList = computed(() => {
   if (
     candidateStore.candidatesGetter &&
@@ -68,6 +63,7 @@ const candidateList = computed(() => {
   }
   return candidateStore.candidatesGetter
 })
+const townshipGetter = computed(() => districtStore.townshipDataGetter)
 const townshipList = ref([])
 // 取得行政區資料
 const district = computed(() => districtStore.district)
@@ -76,10 +72,12 @@ const page = ref(1)
 const totalPages = ref(0)
 const currentTownshipList = computed(() => {
   let data = []
-  data = townshipList.value.slice(
-    (page.value - 1) * rows.value,
-    (page.value - 1) * rows.value + rows.value
-  )
+  if (townshipList.value.length > 0) {
+    data = townshipList.value?.slice(
+      (page.value - 1) * rows.value,
+      (page.value - 1) * rows.value + rows.value
+    )
+  }
   return data
 })
 
@@ -94,10 +92,11 @@ const prevPage = () => {
 const nextPage = () => {
   page.value = page.value + 1
 }
-const getTownshipData = async () => {
-  pageLoadingStore.pageLoading = true
-  const data = await getTownshipElection(county.value, district.value)
-  townshipList.value = Object.entries(data)
+const getTownshipData = () => {
+  if (Object.keys(townshipGetter.value).length === 0) {
+    return
+  }
+  townshipList.value = Object.entries(townshipGetter.value)
     .reduce((newItem, item) => {
       if (item[0] !== '總　計' && item[0] !== district.value)
         newItem.push({
@@ -111,14 +110,14 @@ const getTownshipData = async () => {
     }, [])
     .sort((a, b) => b.total - a.total)
   totalPages.value = Math.ceil(townshipList.value.length / rows.value)
-  pageLoadingStore.pageLoading = false
 }
-watch(district, () => {
+
+watch(townshipGetter, () => {
   initPage()
   getTownshipData()
 })
 onMounted(() => {
-  if (district.value) {
+  if (townshipGetter.value) {
     getTownshipData()
   }
 })

@@ -3,7 +3,7 @@
     <select
       v-model="areaOption"
       class="border border-main-700 text-main-700 text-sm focus:ring-white block w-full p-2.5 outline-none md:text-center"
-      @change="selectArea()"
+      @change="setDistrictData()"
     >
       <option v-for="item in areaList" :key="item" :value="item">
         {{ item }}
@@ -13,22 +13,20 @@
 </template>
 
 <script setup>
-import { getCountyElection } from '@/api/election.mjs'
 import { useDistrictStore } from '@/stores/districtStore.mjs'
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
+import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { rateHandle } from '@/utils/tools.mjs'
+
+const countyElectionStore = useCountyElectionStore()
 const districtStore = useDistrictStore()
 const candidateStore = useCandidateStore()
-const route = useRoute()
 const areaList = ref([])
-const county = ref(route.params.countyid)
 const areaOption = ref('')
 const areaData = ref('')
 // 取得候選人資料
 const candidateList = computed(() => candidateStore.candidatesGetter)
-
-// NOTE 整理行政區資料
-const selectArea = () => {
+const setDistrictData = () => {
   const data = areaData.value[areaOption.value]
   const array = []
 
@@ -45,18 +43,25 @@ const selectArea = () => {
   districtStore.setDistrict(areaOption.value)
   districtStore.setVotesData(array)
 }
-
-districtStore.$subscribe(() => {
-  areaOption.value = districtStore.district
-})
-onMounted(async () => {
-  areaData.value = await getCountyElection(county.value)
+// NOTE 整理行政區資料
+const selectArea = () => {
+  areaData.value = countyElectionStore.countyElectionData
+  if (Object.keys(areaData.value).length === 0) {
+    return
+  }
   for (const key in areaData.value) {
     if (key !== '總　計') {
       areaList.value.push(key)
     }
   }
   areaOption.value = areaList.value[0]
+  setDistrictData()
+}
+
+onMounted(() => {
+  districtStore.$subscribe(() => {
+    areaOption.value = districtStore.district
+  })
   candidateStore.$subscribe(() => {
     selectArea()
   })

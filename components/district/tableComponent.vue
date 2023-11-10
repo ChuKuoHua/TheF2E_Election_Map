@@ -1,6 +1,6 @@
 <template>
   <table class="w-full text-sm text-left text-white">
-    <thead class="text-xs text-white uppercase bg-main-700">
+    <thead class="text-lg text-white uppercase bg-main-700">
       <tr class="border-b border-white">
         <th scope="col" class="px-6 py-3">候選人</th>
         <th scope="col" class="px-6 py-3">得票數</th>

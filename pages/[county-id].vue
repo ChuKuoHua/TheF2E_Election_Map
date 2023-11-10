@@ -44,14 +44,14 @@
         <pieChartComponent :id="'districtPieChart'" />
       </div>
       <div class="w-full md:w-3/5 px-4 md:px-1 mb-5 md:mb-3">
-        <div class="py-3 mb-3 border border-white flex items-center justify-between">
-          <p class="mr-3 font-bold">各鄉鎮市區得票概況</p>
+        <div class="py-3 border border-white flex items-center justify-between">
+          <p class="mr-3 text-lg">各鄉鎮市區得票概況</p>
           <div class="w-2/5 md:w-1/5">
             <selectComponent />
           </div>
         </div>
         <areaTableComponent />
-        <p class="mt-9 mb-3">各村里得票率</p>
+        <p class="mt-6 text-lg mb-3">各村里得票率</p>
         <tableComponent />
       </div>
     </div>
@@ -67,20 +67,30 @@ import chartComponent from '@/components/echart/baseChartComponent.vue'
 import pieChartComponent from '@/components/echart/pieChartComponent.vue'
 import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
 import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
+import { useDistrictStore } from '@/stores/districtStore.mjs'
 
 const pageLoadingStore = usePageLoadingStore()
 const countyElectionStore = useCountyElectionStore()
+const districtStore = useDistrictStore()
 const router = useRouter()
 const route = useRoute()
 const county = ref(route.params.countyid)
+const district = computed(() => districtStore.district)
 
 const comeback = () => {
   router.push({ path: `/` })
 }
 
+watch(district, () => {
+  districtStore.setTownshipData(county.value, district.value)
+})
+
 onMounted(async () => {
   pageLoadingStore.pageLoading = true
   await countyElectionStore.fetchCountyElection(county.value)
+  if (district.value) {
+    await districtStore.setTownshipData(county.value, district.value)
+  }
   pageLoadingStore.pageLoading = false
 })
 </script>

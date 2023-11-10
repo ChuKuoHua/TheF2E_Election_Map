@@ -18,7 +18,7 @@
           </p>
         </div>
         <div class="my-3 ml-8">
-          <p class="text-3xl font-bold">
+          <p class="text-3xl">
             {{ item.voteNumber1 }}萬
             <span class="text-xl tracking-wider font-normal"> {{ item.voteNumber2 }}票 </span>
           </p>
