@@ -12,25 +12,21 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
-import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
+// import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
 import FooterComponent from '@/components/common/footerComponent.vue'
 import PageLoadingComponent from '@/components/common/pageLoadingComponent.vue'
 
 const pageLoadingStore = usePageLoadingStore()
-const countyElectionStore = useCountyElectionStore()
+// const countyElectionStore = useCountyElectionStore()
 const { loading } = storeToRefs(pageLoadingStore)
 const candidateStore = useCandidateStore()
 
-const fetchData = async () => {
+// await countyElectionStore.fetchCountiesList()
+useAsyncData(async () => {
   pageLoadingStore.appLoading = true
-  await countyElectionStore.fetchCountiesList()
   await candidateStore.setCandidates()
   pageLoadingStore.appLoading = false
-}
-
-onMounted(() => {
-  fetchData()
 })
 </script>
 

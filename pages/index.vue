@@ -1,15 +1,41 @@
 <template>
-  <div></div>
+  <div class="bg-[#F6F6F6] min-h-screen">
+    <home-list-component :nationwide-votes="totalVotes" />
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import HomeListComponent from '@/components/county/homeListComponent.vue'
+import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
+import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
+import { useCandidateStore } from '@/stores/candidateStore.mjs'
+import { rateHandle, numberToChinese, removeComma } from '@/utils/tools.mjs'
 
-<style scoped>
-.icon_box {
-  position: absolute;
-  top: 57px;
-  right: 9.9%;
-  width: 80%;
-  height: 2px;
-}
-</style>
+// 頁面所需api
+const pageLoadingStore = usePageLoadingStore()
+const countyElectionStore = useCountyElectionStore()
+const candidateStore = useCandidateStore()
+
+useAsyncData(async () => {
+  pageLoadingStore.pageLoading = true
+  await countyElectionStore.fetchCountyElection('中央')
+  pageLoadingStore.pageLoading = false
+})
+
+// 總計票數
+const totalVotes = computed(() => {
+  const total = countyElectionStore.countyElectionData['總　計'] || {}
+  // 取得候選人資料
+  const candidateList = useCloneDeep(candidateStore.candidates)
+
+  if (isEmpty(total) || !candidateList.length) return []
+
+  candidateList.map((group) => {
+    group.percent = rateHandle(total, total[group.id])
+    group.votes = removeComma(total[group.id])
+    group.votesFormat = numberToChinese(group.votes)
+    return group
+  })
+  return candidateList.sort((a, b) => a.votes - b.votes)
+})
+</script>
