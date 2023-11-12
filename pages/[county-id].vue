@@ -81,18 +81,24 @@ const comeback = () => {
   router.push({ path: `/` })
 }
 
-watch(district, () => {
-  districtStore.setTownshipData(county.value, district.value)
-})
-
-onMounted(async () => {
+useAsyncData(async () => {
   pageLoadingStore.pageLoading = true
   await countyElectionStore.fetchCountyElection(county.value)
-  if (district.value) {
-    await districtStore.setTownshipData(county.value, district.value)
-  }
   pageLoadingStore.pageLoading = false
 })
+useAsyncData(
+  'district',
+  async () => {
+    pageLoadingStore.pageLoading = true
+    await districtStore.fetchTownshipElection(county.value, district.value)
+    pageLoadingStore.pageLoading = false
+  },
+  {
+    watch: [district]
+  }
+)
+
+onMounted(async () => {})
 </script>
 
 <style lang="scss" scoped>

@@ -48,22 +48,22 @@
 </template>
 
 <script setup>
-import { useCandidateStore } from '@/stores/candidateStore.mjs'
+import { useCandidateAndCountyStore } from '@/stores/candidateAndCountyStore.mjs'
 import { useDistrictStore } from '@/stores/districtStore.mjs'
 import { totalHandle, rateHandle, sliceRateDecimal } from '@/utils/tools.mjs'
 
 const districtStore = useDistrictStore()
-const candidateStore = useCandidateStore()
+const candidateAndCountyStore = useCandidateAndCountyStore()
 const candidateList = computed(() => {
   if (
-    candidateStore.candidatesGetter &&
-    candidateStore.candidatesGetter[0].id !== 'electionGroups3'
+    candidateAndCountyStore.candidatesGetter &&
+    candidateAndCountyStore.candidatesGetter[0].id !== 'electionGroups3'
   ) {
-    candidateStore.candidatesGetter.reverse()
+    candidateAndCountyStore.candidatesGetter.reverse()
   }
-  return candidateStore.candidatesGetter
+  return candidateAndCountyStore.candidatesGetter
 })
-const townshipGetter = computed(() => districtStore.townshipDataGetter)
+const townshipGetter = computed(() => districtStore.townshipGetter)
 const townshipList = ref([])
 // 取得行政區資料
 const district = computed(() => districtStore.district)

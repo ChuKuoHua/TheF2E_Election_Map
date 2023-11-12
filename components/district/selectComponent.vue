@@ -14,18 +14,18 @@
 
 <script setup>
 import { useDistrictStore } from '@/stores/districtStore.mjs'
-import { useCandidateStore } from '@/stores/candidateStore.mjs'
+import { useCandidateAndCountyStore } from '@/stores/candidateAndCountyStore.mjs'
 import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { rateHandle } from '@/utils/tools.mjs'
 
 const countyElectionStore = useCountyElectionStore()
 const districtStore = useDistrictStore()
-const candidateStore = useCandidateStore()
+const candidateAndCountyStore = useCandidateAndCountyStore()
 const areaList = ref([])
 const areaOption = ref('')
 const areaData = ref('')
 // 取得候選人資料
-const candidateList = computed(() => candidateStore.candidatesGetter)
+const candidateList = computed(() => candidateAndCountyStore.candidatesGetter)
 const setDistrictData = () => {
   const data = areaData.value[areaOption.value]
   const array = []
@@ -62,7 +62,7 @@ onMounted(() => {
   districtStore.$subscribe(() => {
     areaOption.value = districtStore.district
   })
-  candidateStore.$subscribe(() => {
+  candidateAndCountyStore.$subscribe(() => {
     selectArea()
   })
   if (Object.keys(candidateList.value).length > 0) {

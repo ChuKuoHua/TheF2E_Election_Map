@@ -7,7 +7,7 @@
 <script setup>
 import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { useSetBaseChart } from '@/composables/baseChart.mjs'
-import { useCandidateStore } from '@/stores/candidateStore.mjs'
+import { useCandidateAndCountyStore } from '@/stores/candidateAndCountyStore.mjs'
 import { useDistrictStore } from '@/stores/districtStore.mjs'
 import { removeComma } from '@/utils/tools.mjs'
 const props = defineProps({
@@ -20,7 +20,7 @@ const props = defineProps({
     required: true
   }
 })
-const candidateStore = useCandidateStore()
+const candidateAndCountyStore = useCandidateAndCountyStore()
 const countyElectionStore = useCountyElectionStore()
 const districtStore = useDistrictStore()
 const route = useRoute()
@@ -33,7 +33,7 @@ const county = ref(route.params.countyid || '中央')
 const districtGetter = computed(() => districtStore.districtGetter || '')
 const color = ['#58AC6F', '#62A0D5', '#F2854A']
 // 取得候選人資料
-const candidateList = computed(() => candidateStore.candidatesGetter)
+const candidateList = computed(() => candidateAndCountyStore.candidatesGetter)
 
 const router = useRouter()
 

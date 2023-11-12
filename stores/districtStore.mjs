@@ -1,3 +1,4 @@
+import { getTownshipElection } from '@/api/election.mjs'
 export const useDistrictStore = defineStore('districts', () => {
   const district = ref('') // 行政區
   const districtGetter = computed(() => district.value || '')

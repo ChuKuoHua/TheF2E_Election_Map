@@ -8,13 +8,13 @@
 import HomeListComponent from '@/components/county/homeListComponent.vue'
 import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
 import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
-import { useCandidateStore } from '@/stores/candidateStore.mjs'
+import { useCandidateAndCountyStore } from '@/stores/candidateAndCountyStore.mjs'
 import { rateHandle, numberToChinese, removeComma } from '@/utils/tools.mjs'
 
 // 頁面所需api
 const pageLoadingStore = usePageLoadingStore()
 const countyElectionStore = useCountyElectionStore()
-const candidateStore = useCandidateStore()
+const candidateAndCountyStore = useCandidateAndCountyStore()
 
 useAsyncData(async () => {
   pageLoadingStore.pageLoading = true
@@ -26,7 +26,7 @@ useAsyncData(async () => {
 const totalVotes = computed(() => {
   const total = countyElectionStore.countyElectionData['總　計'] || {}
   // 取得候選人資料
-  const candidateList = useCloneDeep(candidateStore.candidates)
+  const candidateList = useCloneDeep(candidateAndCountyStore.candidates)
 
   if (isEmpty(total) || !candidateList.length) return []
 

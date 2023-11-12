@@ -11,21 +11,18 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { useCandidateStore } from '@/stores/candidateStore.mjs'
-import { useCountiesListStore } from '@/stores/countiesListStore.mjs'
+import { useCandidateAndCountyStore } from '@/stores/candidateAndCountyStore.mjs'
 import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
 import FooterComponent from '@/components/common/footerComponent.vue'
 import PageLoadingComponent from '@/components/common/pageLoadingComponent.vue'
 
 const pageLoadingStore = usePageLoadingStore()
-const countiesListStore = useCountiesListStore()
 const { loading } = storeToRefs(pageLoadingStore)
-const candidateStore = useCandidateStore()
+const candidateAndCountyStore = useCandidateAndCountyStore()
 
 useAsyncData(async () => {
   pageLoadingStore.appLoading = true
-  await candidateStore.setCandidates()
-  await countiesListStore.fetchCountiesList()
+  await candidateAndCountyStore.fetchCandidatesAndCounties()
   pageLoadingStore.appLoading = false
 })
 </script>
