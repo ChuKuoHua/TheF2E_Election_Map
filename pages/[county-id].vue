@@ -66,26 +66,24 @@ import tableComponent from '@/components/village/tableComponent.vue'
 import chartComponent from '@/components/echart/baseChartComponent.vue'
 import pieChartComponent from '@/components/echart/pieChartComponent.vue'
 import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
-import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { useDistrictStore } from '@/stores/districtStore.mjs'
 
 const pageLoadingStore = usePageLoadingStore()
-const countyElectionStore = useCountyElectionStore()
 const districtStore = useDistrictStore()
 const router = useRouter()
 const route = useRoute()
 const county = ref(route.params.countyid)
-const district = computed(() => districtStore.district)
+const district = computed(() => districtStore.districtGetter)
 
 const comeback = () => {
+  districtStore.setDistrict('')
   router.push({ path: `/` })
 }
 
 useAsyncData(async () => {
-  pageLoadingStore.pageLoading = true
-  await countyElectionStore.fetchCountyElection(county.value)
-  pageLoadingStore.pageLoading = false
+  await districtStore.fetchDistrictElection(county.value)
 })
+
 useAsyncData(
   'district',
   async () => {
@@ -98,7 +96,7 @@ useAsyncData(
   }
 )
 
-onMounted(async () => {})
+onMounted(() => {})
 </script>
 
 <style lang="scss" scoped>

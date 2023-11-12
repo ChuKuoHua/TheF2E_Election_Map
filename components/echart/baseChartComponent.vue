@@ -23,30 +23,18 @@ const props = defineProps({
 const candidateAndCountyStore = useCandidateAndCountyStore()
 const countyElectionStore = useCountyElectionStore()
 const districtStore = useDistrictStore()
-const route = useRoute()
 const xAxisData = ref([])
 const elChart = ref(null)
 const chart = ref(null)
 const yAxisData = ref([])
 const electionNumberArray = ref([])
-const county = ref(route.params.countyid || '中央')
-const districtGetter = computed(() => districtStore.districtGetter || '')
+const districtGetter = computed(() => districtStore.districtGetter)
 const color = ['#58AC6F', '#62A0D5', '#F2854A']
 // 取得候選人資料
 const candidateList = computed(() => candidateAndCountyStore.candidatesGetter)
 
 const router = useRouter()
 
-// NOTE 初始事件
-const initHandle = () => {
-  // 監聽 districtStore 的 state 是否已取得資料
-  districtStore.$subscribe(() => {
-    getData()
-  })
-  if (Object.keys(districtGetter.value).length > 0) {
-    getData()
-  }
-}
 // NOTE 整理圖表資料
 const chartOptionData = (data) => {
   yAxisData.value = []
@@ -86,25 +74,27 @@ const chartOptionData = (data) => {
 }
 
 const getData = async () => {
-  let title = ''
-  if (county.value === '中央') {
-    title = '各縣市政黨得票數'
-  } else {
-    title = '各鄉鎮市區政黨得票數'
-  }
+  const title = '各鄉鎮市區政黨得票數'
   // 取得縣市資料
-  const electionData = countyElectionStore.countyElectionData
+  const electionData = districtStore.districtListGetter
   if (typeof electionData !== 'object') {
     router.push({ path: `/` })
     return
   }
+
   await chartOptionData(electionData)
   // echart 生成圖表
   chart.value = useSetBaseChart(elChart.value, title, xAxisData.value, yAxisData.value, true)
 }
 
+watch(districtGetter, () => {
+  getData()
+})
+
 onMounted(() => {
-  initHandle()
+  if (Object.keys(districtGetter.value).length > 0) {
+    getData()
+  }
 })
 </script>
 

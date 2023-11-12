@@ -47,20 +47,11 @@ const color = {
 }
 // 取得行政區資料
 const districtsData = computed(() => districtStore.votesGetter)
-const district = computed(() => districtStore.districtGetter)
+const districtGetter = computed(() => districtStore.districtGetter)
 const chartTitle = ref('')
-// NOTE 初始事件
-const initHandle = () => {
-  districtStore.$subscribe(() => {
-    getData()
-  })
-  if (Object.keys(districtsData.value).length > 0) {
-    getData()
-  }
-}
 
 const getData = () => {
-  chartTitle.value = `${county.value}${district.value}`
+  chartTitle.value = `${county.value}${districtGetter.value}`
   yAxisData.value = districtsData.value.map((item) => {
     return {
       name: `${item.rate}%`,
@@ -80,8 +71,14 @@ const getData = () => {
   chart.value = useSetPieChart(elPieChart.value, chartTitle.value, yAxisData.value)
 }
 
+watch([districtsData, districtGetter], () => {
+  getData()
+})
+
 onMounted(() => {
-  initHandle()
+  if (Object.keys(districtsData.value).length > 0) {
+    getData()
+  }
 })
 </script>
 

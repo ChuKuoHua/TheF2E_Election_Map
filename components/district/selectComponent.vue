@@ -1,11 +1,11 @@
 <template>
   <div class="select">
     <select
-      v-model="areaOption"
+      v-model="districtOption"
       class="border border-main-700 text-main-700 text-sm focus:ring-white block w-full p-2.5 outline-none md:text-center"
       @change="setDistrictData()"
     >
-      <option v-for="item in areaList" :key="item" :value="item">
+      <option v-for="item in districtOptions" :key="item" :value="item">
         {{ item }}
       </option>
     </select>
@@ -15,21 +15,19 @@
 <script setup>
 import { useDistrictStore } from '@/stores/districtStore.mjs'
 import { useCandidateAndCountyStore } from '@/stores/candidateAndCountyStore.mjs'
-import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { rateHandle } from '@/utils/tools.mjs'
 
-const countyElectionStore = useCountyElectionStore()
 const districtStore = useDistrictStore()
 const candidateAndCountyStore = useCandidateAndCountyStore()
-const areaList = ref([])
-const areaOption = ref('')
-const areaData = ref('')
+const districtOptions = computed(() => districtStore.districtOptionsGetter)
+const districtGetter = computed(() => districtStore.districtGetter)
+const districtOption = ref('')
+
 // 取得候選人資料
 const candidateList = computed(() => candidateAndCountyStore.candidatesGetter)
 const setDistrictData = () => {
-  const data = areaData.value[areaOption.value]
+  const data = districtStore.districtListGetter[districtOption.value]
   const array = []
-
   candidateList.value.forEach((item) => {
     const votesRate = rateHandle(data, data[item.id])
     array.push({
@@ -40,35 +38,21 @@ const setDistrictData = () => {
       number: data[item.id]
     })
   })
-  districtStore.setDistrict(areaOption.value)
+  districtStore.setDistrict(districtOption.value)
   districtStore.setVotesData(array)
 }
-// NOTE 整理行政區資料
-const selectArea = () => {
-  areaData.value = countyElectionStore.countyElectionData
-  if (Object.keys(areaData.value).length === 0) {
-    return
-  }
-  for (const key in areaData.value) {
-    if (key !== '總　計') {
-      areaList.value.push(key)
-    }
-  }
-  areaOption.value = areaList.value[0]
-  setDistrictData()
-}
 
-onMounted(() => {
-  districtStore.$subscribe(() => {
-    areaOption.value = districtStore.district
-  })
-  candidateAndCountyStore.$subscribe(() => {
-    selectArea()
-  })
-  if (Object.keys(candidateList.value).length > 0) {
-    selectArea()
+watch([districtOptions, districtGetter], (newVal, oldVal) => {
+  districtOption.value = oldVal[1]
+  if (newVal[1] !== oldVal[1]) {
+    districtOption.value = newVal[1]
+  }
+  if (districtOption.value) {
+    setDistrictData()
   }
 })
+
+onMounted(() => {})
 </script>
 
 <style lang="scss" scoped>
