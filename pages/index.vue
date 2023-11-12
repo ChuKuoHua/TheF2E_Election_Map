@@ -1,6 +1,9 @@
 <template>
   <div class="bg-[#F6F6F6] min-h-screen taiwan-page flex items-center justify-center gap-8">
-    <home-list-component :nationwide-votes="totalVotes" />
+    <div>
+      <title-component />
+      <home-list-component :nationwide-votes="totalVotes" />
+    </div>
     <taiwan-map-component :counties-voting-winner-list="countiesVotingWinner" />
   </div>
 </template>
@@ -8,6 +11,7 @@
 <script setup>
 import HomeListComponent from '@/components/county/homeListComponent.vue'
 import TaiwanMapComponent from '@/components/taiwanMap/taiwanMapComponent.vue'
+import TitleComponent from '@/components/common/titleComponent.vue'
 import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
 import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
