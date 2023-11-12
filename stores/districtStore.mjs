@@ -1,10 +1,8 @@
-import { getTownshipElection } from '@/api/election.mjs'
-
 export const useDistrictStore = defineStore('districts', () => {
   const district = ref('') // 行政區
   const districtGetter = computed(() => district.value || '')
-  const townshipData = ref('')
-  const townshipDataGetter = computed(() => townshipData.value || [])
+  const township = ref('')
+  const townshipGetter = computed(() => township.value || '')
   const votesData = ref([]) // 行政區投票資料
   const votesGetter = computed(() => votesData.value || [])
   const setDistrict = (payload) => {
@@ -14,19 +12,20 @@ export const useDistrictStore = defineStore('districts', () => {
     payload.sort((a, b) => b.rate - a.rate)
     votesData.value = payload
   }
-  const setTownshipData = async (county, district) => {
-    townshipData.value = await getTownshipElection(county, district)
+
+  const fetchTownshipElection = async (countyName, district) => {
+    township.value = await getTownshipElection(countyName, district)
   }
 
   return {
     district,
     districtGetter,
-    townshipData,
-    townshipDataGetter,
+    township,
+    townshipGetter,
     votesData,
     votesGetter,
     setVotesData,
     setDistrict,
-    setTownshipData
+    fetchTownshipElection
   }
 })

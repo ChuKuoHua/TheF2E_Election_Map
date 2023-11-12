@@ -1,7 +1,7 @@
 <template>
   <div
     id="drawer-example"
-    class="fixed top-0 right-0 z-10 h-screen p-4 bg-main text-white w-lg transition-all duration-500 ease-in-out overflow-y-auto"
+    class="fixed top-0 right-0 z-40 h-screen p-4 bg-main text-white w-lg transition-all duration-500 ease-in-out overflow-y-auto"
     tabindex="-1"
     aria-labelledby="drawer-label"
     :class="{ '-right_640': isClose }"
@@ -47,9 +47,9 @@
 </template>
 
 <script setup>
-import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
+import { useCountiesListStore } from '@/stores/countiesListStore.mjs'
 
-const countyElectionStore = useCountyElectionStore()
+const countiesListStore = useCountiesListStore()
 const countiesList = ref('')
 const isClose = ref(true)
 
@@ -59,8 +59,8 @@ const onClick = () => {
 
 defineExpose({ onClick })
 onMounted(() => {
-  countyElectionStore.$subscribe(() => {
-    countiesList.value = countyElectionStore.counties.filter((item) => item !== '總　計')
+  countiesListStore.$subscribe(() => {
+    countiesList.value = countiesListStore.counties.filter((item) => item !== '總　計')
   })
 })
 </script>
