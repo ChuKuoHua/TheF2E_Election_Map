@@ -1,11 +1,13 @@
 <template>
-  <div class="bg-[#F6F6F6] min-h-screen">
+  <div class="bg-[#F6F6F6] min-h-screen taiwan-page flex items-center justify-center gap-8">
     <home-list-component :nationwide-votes="totalVotes" />
+    <taiwan-map-component :counties-voting-winner-list="countiesVotingWinner" />
   </div>
 </template>
 
 <script setup>
 import HomeListComponent from '@/components/county/homeListComponent.vue'
+import TaiwanMapComponent from '@/components/taiwanMap/taiwanMapComponent.vue'
 import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
 import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { useCandidateStore } from '@/stores/candidateStore.mjs'
@@ -38,4 +40,40 @@ const totalVotes = computed(() => {
   })
   return candidateList.sort((a, b) => a.votes - b.votes)
 })
+
+// 22縣市票數獲勝者判斷
+const countiesVotingWinner = computed(() => {
+  const maxValues = {}
+
+  for (const city in countyElectionStore.countyElectionData) {
+    const cityData = countyElectionStore.countyElectionData[city]
+    let maxKey = null
+    let maxValue = -Infinity
+
+    for (const key in cityData) {
+      const value = removeComma(cityData[key])
+      if (value > maxValue) {
+        maxValue = value
+        maxKey = key
+      }
+    }
+    maxValues[city] = maxKey
+  }
+  return maxValues
+})
 </script>
+<style scoped lang="scss">
+.taiwan-page :deep(svg) {
+  path {
+    stroke: white;
+  }
+
+  path:hover,
+  path.active,
+  rect:hover {
+    transform: translate(-1px, -2px);
+    filter: brightness(0.9);
+    cursor: pointer;
+  }
+}
+</style>
