@@ -1,5 +1,5 @@
 <template>
-  <svg id="Taiwan"></svg>
+  <svg id="Taiwan" class="border-2 border-solid border-main-800 rounded-[25%]"></svg>
 </template>
 
 <script setup>
@@ -13,32 +13,27 @@ const props = defineProps({
   }
 })
 
+const currentCounty = ref('')
+const outlyingIslands = ref([
+  {
+    COUNTYNAME: '連江縣',
+    path: {}
+  },
+  {
+    COUNTYNAME: '金門縣',
+    path: {}
+  },
+  {
+    COUNTYNAME: '澎湖縣',
+    path: {}
+  }
+])
+
 onMounted(() => {
-  // 地圖放大倍率，長寬高設定
-  let mercatorScale
-  let w = document.documentElement.clientWidth
-  let h = document.documentElement.clientHeight
-
-  if (w > 1400) w = w / 2.5
-  const widthHeightProportion = parseFloat((w / h).toFixed(1))
-  if (widthHeightProportion > 1) h = h * 2
-
-  if (w >= 700) mercatorScale = 11000
-  else if (w >= 600) mercatorScale = 9000
-  else mercatorScale = 6000
-
-  const svg = d3
-    .select('#Taiwan')
-    .attr('width', w)
-    .attr('height', h)
-    .attr('viewBox', `0 0 ${w} ${h}`)
+  const svg = d3.select('#Taiwan').attr('width', 500).attr('height', 750)
   d3.json('taiwanTopoJSON.json').then((data) => {
     const counties = topojson.feature(data, data.objects.COUNTY_MOI_1090820)
-    const projection = d3
-      .geoMercator()
-      .center([123, 24])
-      .scale(mercatorScale)
-      .translate([w, h / 2.5])
+    const projection = d3.geoMercator().center([123, 24]).scale(9000).translate([600, 350])
 
     const path = d3.geoPath().projection
 
@@ -47,16 +42,49 @@ onMounted(() => {
       .data(counties.features)
       .join('path')
       .attr('d', path(projection))
-      .attr('id', function (d) {
+      .attr('id', (d) => {
         // 設定id
-        return d.properties.COUNTYNAME
+        return d.properties.COUNTYNAME.split(' ')[0]
       })
-      .on('click', function (e) {
-        const currectCounty = e.target.__data__.properties.COUNTYNAME
-        svg.selectAll('path').classed('active', false)
-        d3.select(this).classed('active', true)
-        navigateTo(`${currectCounty}`)
+      .on('click', (e) => {
+        currentCounty.value = e.target.__data__.properties.COUNTYNAME
       })
+      .on('mouseover', (e) => {
+        d3.select(e.target).classed('active', true)
+      })
+      .on('mouseleave', (e) => {
+        d3.select(e.target).classed('active', false)
+      })
+
+    outlyingIslands.value.map((island) => {
+      island.path = svg.select(`#${island.COUNTYNAME}`)
+      if (!island.path.empty()) {
+        const boundingBox = island.path.node().getBBox()
+        const { x, y, width, height } = boundingBox
+        const rect = svg
+          .insert('rect')
+          .attr('x', x)
+          .attr('y', y)
+          .attr('width', width)
+          .attr('height', height)
+          .style('fill', 'none')
+          .style('stroke', island.COUNTYNAME === '連江縣' ? '#e2e2e2' : 'transparent')
+          .style('stroke-width', 1)
+          .style('pointer-events', 'bounding-box')
+
+        rect
+          .on('mouseenter', () => {
+            island.path.classed('active', true)
+          })
+          .on('mouseleave', () => {
+            island.path.classed('active', false)
+          })
+          .on('click', () => {
+            currentCounty.value = island.COUNTYNAME
+          })
+      }
+      return island
+    })
   })
 })
 
@@ -76,4 +104,9 @@ watch(
     })
   }
 )
+
+// 切換縣市
+watch(currentCounty, (newVal) => {
+  navigateTo(newVal)
+})
 </script>
