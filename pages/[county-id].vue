@@ -76,20 +76,24 @@ const county = ref(route.params.countyid)
 const district = computed(() => districtStore.districtGetter)
 
 const comeback = () => {
-  districtStore.setDistrict('')
   router.push({ path: `/` })
 }
+
+definePageMeta({
+  middleware: 'auth'
+})
 
 useAsyncData(async () => {
   await districtStore.fetchDistrictElection(county.value)
 })
-
 useAsyncData(
   'district',
   async () => {
     pageLoadingStore.pageLoading = true
-    await districtStore.fetchTownshipElection(county.value, district.value)
-    pageLoadingStore.pageLoading = false
+    if (district.value) {
+      await districtStore.fetchTownshipElection(county.value, district.value)
+      pageLoadingStore.pageLoading = false
+    }
   },
   {
     watch: [district]

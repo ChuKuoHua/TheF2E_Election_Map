@@ -3,22 +3,10 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { PieChart } from 'echarts/charts'
 import { LabelLayout } from 'echarts/features'
 import 'echarts/lib/component/markArea'
-import {
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
-  DataZoomComponent
-} from 'echarts/components'
+import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components'
+import { setFormatter } from '@/utils/chartFormatter.mjs'
 
-use([
-  CanvasRenderer,
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
-  LabelLayout,
-  DataZoomComponent,
-  PieChart
-])
+use([CanvasRenderer, TitleComponent, TooltipComponent, LegendComponent, LabelLayout, PieChart])
 
 /**
  *
@@ -56,12 +44,15 @@ export function useSetPieChart(dom, title, axisData) {
       }
     },
     tooltip: {
-      trigger: 'axis',
+      trigger: 'item',
       axisPointer: {
         type: 'shadow',
         shadowStyle: {
           color: 'rgba(0, 0, 0, 0.1)'
         }
+      },
+      formatter(params) {
+        return setFormatter(params, 'pie')
       }
     },
     grid: {

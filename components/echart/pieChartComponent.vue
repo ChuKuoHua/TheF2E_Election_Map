@@ -56,6 +56,7 @@ const getData = () => {
     return {
       name: `${item.rate}%`,
       value: item.rate,
+      society: item.society,
       itemStyle: {
         color: color[item.id]
       },

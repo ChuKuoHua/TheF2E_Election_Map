@@ -32,6 +32,7 @@ const setDistrictData = () => {
     const votesRate = rateHandle(data, data[item.id])
     array.push({
       id: item.id,
+      society: item.society,
       president: item.name,
       vicePresident: item.subName,
       rate: votesRate,
