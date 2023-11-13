@@ -1,5 +1,5 @@
 <template>
-  <div v-if="nationwideVotes.length" class="flex h-fit">
+  <div v-if="nationwideVotes.length" class="flex justify-center h-fit pt-16">
     <div class="flex flex-col-reverse gap-2">
       <div
         v-for="(item, index) in nationwideVotes"
@@ -26,7 +26,7 @@
         :class="setColor(index)"
       ></div>
     </div>
-    <div class="flex flex-col-reverse gap-2">
+    <div class="flex flex-col-reverse gap-2 relative">
       <div
         v-for="item in nationwideVotes"
         :key="`votes_${item.id}`"
@@ -46,6 +46,7 @@
           <div class="text-h1 tracking-widest">{{ item.name }}/{{ item.subName }}</div>
         </div>
       </div>
+      <img src="/crown.svg" alt="crown" class="max-w-fit absolute -top-11 left-8" />
     </div>
   </div>
 </template>
