@@ -1,0 +1,16 @@
+.triangle_icon {
+  top: -10px;
+  right: 5px;
+  @include triangle;
+  &::after {
+    top: -12px;
+    right: -37px;
+    @include triangle;
+  }
+  &::before {
+    position: absolute;
+    top: -12px;
+    right: -65px;
+    @include triangle;
+  }
+}

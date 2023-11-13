@@ -1,8 +1,10 @@
 @mixin triangle {
   width: 0;
   height: 0;
-  border-top: 10px solid transparent;
-  border-left: 15px solid #333;
+  border-top: 12px solid transparent;
+  border-left: 20px solid #333;
   border-right: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+  border-bottom: 12px solid transparent;
+  position: absolute;
+  content: '';
 }

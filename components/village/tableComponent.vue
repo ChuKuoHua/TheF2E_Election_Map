@@ -1,44 +1,89 @@
 <template>
-  <table class="w-full text-sm text-left text-main-700">
-    <thead class="text-lg text-white uppercase bg-main-700">
-      <tr class="border-b pr-6">
-        <th class="px-6 py-3">村里</th>
-        <th v-for="item of candidateList" :key="item" class="px-6 py-3">
-          {{ item.name }} / {{ item.subName }}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
+  <div class="hidden md:block">
+    <table class="w-full text-sm text-left text-main-700">
+      <thead class="text-lg text-white uppercase bg-main-700">
+        <tr class="border-b pr-6">
+          <th class="px-6 py-3">村里</th>
+          <th v-for="item of candidateList" :key="item" class="px-6 py-3 text-center lg:text-left">
+            {{ item.name }} / {{ item.subName }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="item of currentTownshipList"
+          :key="item.name"
+          class="bg-main border-b mb-3 border-main"
+        >
+          <td class="px-6 py-2 text-lg">
+            {{ item.name }}
+          </td>
+          <td class="px-6 py-2 text-center">
+            <span class="text-xl">
+              {{ sliceRateDecimal(item.dpp)[0] }}
+            </span>
+            .{{ sliceRateDecimal(item.dpp)[1] }} %
+          </td>
+          <td class="px-6 py-2 text-center">
+            <span class="text-xl">
+              {{ sliceRateDecimal(item.jmt)[0] }}
+            </span>
+            .{{ sliceRateDecimal(item.jmt)[1] }} %
+          </td>
+
+          <td class="px-6 py-2 text-center">
+            <span class="text-xl">
+              {{ sliceRateDecimal(item.other)[0] }}
+            </span>
+            .{{ sliceRateDecimal(item.other)[1] }} %
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="block md:hidden">
+    <ul>
+      <li
         v-for="item of currentTownshipList"
         :key="item.name"
-        class="bg-main border-b mb-3 border-main"
+        class="border border-main-700 mb-3 p-3"
       >
-        <td class="px-6 py-2 text-lg">
-          {{ item.name }}
-        </td>
-        <td class="px-6 py-2 text-center">
-          <span class="text-xl">
-            {{ sliceRateDecimal(item.dpp)[0] }}
-          </span>
-          .{{ sliceRateDecimal(item.dpp)[1] }} %
-        </td>
-        <td class="px-6 py-2 text-center">
-          <span class="text-xl">
-            {{ sliceRateDecimal(item.jmt)[0] }}
-          </span>
-          .{{ sliceRateDecimal(item.jmt)[1] }} %
-        </td>
-
-        <td class="px-6 py-2 text-center">
-          <span class="text-xl">
-            {{ sliceRateDecimal(item.other)[0] }}
-          </span>
-          .{{ sliceRateDecimal(item.other)[1] }} %
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        <div class="flex justify-between">
+          <p>村里：</p>
+          <p class="text-xl">{{ item.name }}</p>
+        </div>
+        <div v-for="candidate of candidateList" :key="candidate">
+          <div v-if="candidate.id === 'electionGroups3'" class="flex justify-between">
+            <p>{{ candidate.name }} / {{ candidate.subName }}：</p>
+            <p>
+              <span class="text-lg">
+                {{ sliceRateDecimal(item.dpp)[0] }}
+              </span>
+              .{{ sliceRateDecimal(item.dpp)[1] }} %
+            </p>
+          </div>
+          <div v-else-if="candidate.id === 'electionGroups2'" class="flex justify-between">
+            <p>{{ candidate.name }} / {{ candidate.subName }}：</p>
+            <p>
+              <span class="text-lg">
+                {{ sliceRateDecimal(item.jmt)[0] }}
+              </span>
+              .{{ sliceRateDecimal(item.jmt)[1] }} %
+            </p>
+          </div>
+          <div v-else class="flex justify-between">
+            <p>{{ candidate.name }} / {{ candidate.subName }}：</p>
+            <p>
+              <span class="text-lg">
+                {{ sliceRateDecimal(item.other)[0] }}
+              </span>
+              .{{ sliceRateDecimal(item.other)[1] }} %
+            </p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
   <div class="mt-3 clear-both text-main-300">
     <button v-show="page !== 1" type="button" @click="prevPage()">上一頁</button>
     <button v-show="page !== totalPages" type="button" class="float-right" @click="nextPage()">

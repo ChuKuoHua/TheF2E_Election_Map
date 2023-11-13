@@ -2,9 +2,9 @@
   <table class="w-full text-sm text-left text-white">
     <thead class="text-lg text-white uppercase bg-main-700">
       <tr class="border-b border-white">
-        <th scope="col" class="px-6 py-3">候選人</th>
-        <th scope="col" class="px-6 py-3">得票數</th>
-        <th scope="col" class="px-6 py-3">得票率(%)</th>
+        <th scope="col" class="px-3 text-center md:text-left md:px-6 py-3">候選人</th>
+        <th scope="col" class="px-3 text-center md:text-left md:px-6 py-3">得票數</th>
+        <th scope="col" class="px-3 text-center md:text-left md:px-6 py-3">得票率(%)</th>
       </tr>
     </thead>
     <tbody>
@@ -32,9 +32,9 @@
             {{ item.vicePresident }}
           </p>
         </td>
-        <td class="px-6 py-2 text-2xl">{{ numberToChinese(item.number) }}</td>
-        <td class="px-6 py-2">
-          <span class="text-2xl">
+        <td class="px-3 md:px-6 py-2 text-xl md:text-2xl">{{ numberToChinese(item.number) }}</td>
+        <td class="px-3 md:px-6 py-2">
+          <span class="text-xl md:text-2xl">
             {{ sliceRateDecimal(item.rate)[0] }}
           </span>
           .{{ sliceRateDecimal(item.rate)[1] }} %

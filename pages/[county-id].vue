@@ -1,15 +1,31 @@
 <template>
   <div>
     <button
-      class="border border-main-700 rounded-lg hover:text-white p-3 my-6 mr-12 flex items-center float-right comeback"
+      class="border border-main-700 rounded-lg hover:text-white p-3 mt-6 mb-10 md:my-6 mr-6 flex items-center float-right comeback"
       type="button"
       @click="comeback"
     >
       <div class="arrow mr-2"></div>
-
       返回全台統計
     </button>
     <div class="clear-both"></div>
+    <div class="w-3/4 md:w-11/12 m-auto md:mr-0 md:ml-auto py-3 flex justify-between items-center">
+      <div class="w-2/4 md:w-3/6 h-1 bg-main-700 relative">
+        <div class="triangle_icon absolute top-0 left-0 hidden md:block"></div>
+        <h1
+          class="absolute -top-12 lg:-top-16 md:left-24 py-2 bg-dpp w-3/4 md:w-1/4 lg:w-1/5 text-center text-xl text-white tracking-widest"
+        >
+          {{ county }}
+        </h1>
+        <div
+          class="absolute -top-1.5 right-0 bottom-0 rounded-full bg-main-700 h-4 w-4 hidden md:block"
+        ></div>
+      </div>
+      <div class="w-2/4 md:w-1/4 lg:w-1/6">
+        <h2 class="text-4xl text-right md:text-center tracking-widest">TAIWAN</h2>
+      </div>
+      <div class="w-2/6 hidden md:block md:w-1/4 h-1 bg-main-700"></div>
+    </div>
     <div class="bg-main-800 relative">
       <div class="absolute top-0 right-8">
         <svg width="400" height="300">
@@ -18,7 +34,6 @@
               <rect x="0" y="10" width="150" height="12" fill="#B8B8B830" />
             </pattern>
           </defs>
-
           <circle
             cx="250"
             cy="70"
@@ -28,25 +43,25 @@
           />
         </svg>
       </div>
-      <div class="pt-20 relative z-50">
-        <div class="w-full md:w-5/6 mx-auto flex flex-wrap">
-          <div class="mb-3 w-full md:w-3/5">
+      <div class="pt-20 relative z-30">
+        <div class="w-full lg:w-5/6 mx-auto flex flex-wrap">
+          <div class="mb-3 w-full lg:w-3/5 md:mx-6 lg:mx-0">
             <chartComponent :id="'districtChart'" :type="'district'" />
           </div>
-          <div class="w-full md:w-2/5 px-6 md:px-3">
+          <div class="w-full lg:w-2/5 px-6 lg:px-3">
             <countyListComponent />
           </div>
         </div>
       </div>
     </div>
-    <div class="w-full md:w-5/6 mx-auto flex flex-wrap mt-10 relative z-50">
-      <div class="w-full md:w-2/5">
+    <div class="w-full lg:w-5/6 mx-auto flex flex-wrap mt-10 relative z-30">
+      <div class="w-full lg:w-2/5 mx-6 lg:mx-0">
         <pieChartComponent :id="'districtPieChart'" />
       </div>
-      <div class="w-full md:w-3/5 px-4 md:px-1 mb-5 md:mb-3">
+      <div class="w-full lg:w-3/5 px-4 lg:px-1 mb-5 lg:mb-3">
         <div class="py-3 border border-white flex items-center justify-between">
           <p class="mr-3 text-lg">各鄉鎮市區得票概況</p>
-          <div class="w-2/5 md:w-1/5">
+          <div class="w-2/5 lg:w-1/5">
             <selectComponent />
           </div>
         </div>

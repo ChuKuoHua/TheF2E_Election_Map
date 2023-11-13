@@ -2,10 +2,10 @@
   <div class="mx-10 md:mx-0">
     <p class="text-center text-main-700">{{ chartTitle }}</p>
     <div :id="props.id" ref="elPieChart" class="w-full lg:h-96 h-64"></div>
-    <ul>
+    <ul class="md:flex md:justify-center lg:block">
       <li v-for="item of districtsData" :key="item.president">
         <div class="flex justify-center">
-          <div class="w-3/4 md:w-full lg:w-2/4 px-3 md:px-8">
+          <div class="w-4/5 md:w-full lg:w-2/4 px-3 md:px-8">
             <p
               class="py-1 text-xl border-l-8 mb-3 pl-5"
               :class="{

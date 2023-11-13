@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center mx-ˊ md:mx-0">
+  <div class="flex justify-center md:mx-0">
     <div :id="props.id" ref="elChart" class="w-full h-96"></div>
   </div>
 </template>
