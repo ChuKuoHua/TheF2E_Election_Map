@@ -1,6 +1,6 @@
 <template>
   <div v-if="nationwideVotes.length" class="flex justify-center h-fit pt-16">
-    <div class="flex flex-col-reverse gap-2">
+    <div class="hidden md:flex flex-col-reverse gap-4">
       <div
         v-for="(item, index) in nationwideVotes"
         :key="`percent_${item.id}`"
@@ -15,10 +15,12 @@
           </span>
           <span class="text-2xl"> .{{ item.percent.toString().split('.')[1] }}% </span>
         </div>
-        <div v-if="index === 2" class="text-2xl tracking-widest text-main-900">得票率</div>
+        <div v-if="index === 2" class="text-2xl tracking-widest text-main-900 pb-2">得票率</div>
       </div>
     </div>
-    <div class="flex gap-2 flex-wrap-reverse flex-row-reverse justify-center w-32 mr-2 ml-1">
+    <div
+      class="hidden md:flex gap-2 flex-wrap-reverse flex-row-reverse justify-center w-32 mr-2 ml-1"
+    >
       <div
         v-for="index in 100"
         :key="`circle_${index}`"
@@ -26,11 +28,11 @@
         :class="setColor(index)"
       ></div>
     </div>
-    <div class="flex flex-col-reverse gap-2 relative">
+    <div class="w-full md:w-[400px] flex flex-col-reverse gap-4 relative">
       <div
         v-for="item in nationwideVotes"
         :key="`votes_${item.id}`"
-        class="w-[400px] flex-1 flex flex-col-reverse items-center justify-between"
+        class="flex-1 flex flex-col-reverse items-center justify-between"
       >
         <div
           class="text-h2 w-full h-16 flex items-center justify-center text-white tracking-widest"
@@ -39,14 +41,14 @@
           {{ item.votesFormat }}
         </div>
         <div
-          class="w-11/12 border-l-2 flex-1 flex flex-col justify-center px-5 pb-2"
+          class="w-11/12 border-l-2 flex-1 flex flex-col justify-center px-5 pb-0.5"
           :class="[`border-${item.societyEng}`, `text-${item.societyEng}`]"
         >
           <div class="text-[20px] tracking-widest">{{ item.society }}</div>
           <div class="text-h1 tracking-widest">{{ item.name }}/{{ item.subName }}</div>
         </div>
       </div>
-      <img src="/crown.svg" alt="crown" class="max-w-fit absolute -top-11 left-8" />
+      <img src="/images/crown.svg" alt="crown" class="max-w-fit absolute -top-11 left-8" />
     </div>
   </div>
 </template>

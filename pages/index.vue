@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#F6F6F6] min-h-screen taiwan-page flex items-center justify-center gap-8">
+  <div class="bg-[#F6F6F6] min-h-screen taiwan-page flex items-center justify-center gap-8 py-10">
     <div>
       <title-component />
       <home-list-component :nationwide-votes="totalVotes" />
@@ -39,7 +39,7 @@ const totalVotes = computed(() => {
   candidateList.map((group) => {
     group.percent = rateHandle(total, total[group.id])
     group.votes = removeComma(total[group.id])
-    group.votesFormat = numberToChinese(group.votes)
+    group.votesFormat = numberToChinese(group.votes).replace(/\s/g, '')
     return group
   })
   return candidateList.sort((a, b) => a.votes - b.votes)
