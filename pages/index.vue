@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-[#F6F6F6] min-h-screen taiwan-page flex items-center justify-center gap-8 py-10">
+  <div
+    class="bg-[#F6F6F6] min-h-screen taiwan-page flex items-center justify-center flex-wrap gap-8 py-10 bg-none 2xl:bg-[url('/images/homeBg.svg')] bg-contain bg-no-repeat bg-right"
+  >
     <div>
       <title-component />
       <home-list-component :nationwide-votes="totalVotes" />
@@ -68,6 +70,8 @@ const countiesVotingWinner = computed(() => {
 </script>
 <style scoped lang="scss">
 .taiwan-page :deep(svg) {
+  //  background-image: url('/images/taiwanMapBg.svg');
+  //  background-size: cover;
   path {
     stroke: white;
   }

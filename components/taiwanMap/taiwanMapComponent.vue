@@ -1,5 +1,8 @@
 <template>
-  <svg id="Taiwan" class="border-2 border-solid border-main-800 rounded-[25%]"></svg>
+  <svg
+    id="Taiwan"
+    class="transform translate-x-0 2xl:-translate-x-20 bg-none 2xl:bg-[url('/images/taiwanMapBg.svg')] bg-cover"
+  ></svg>
 </template>
 
 <script setup>
@@ -30,10 +33,10 @@ const outlyingIslands = ref([
 ])
 
 onMounted(() => {
-  const svg = d3.select('#Taiwan').attr('width', 500).attr('height', 750)
+  const svg = d3.select('#Taiwan').attr('width', 550).attr('height', 825)
   d3.json('taiwanTopoJSON.json').then((data) => {
     const counties = topojson.feature(data, data.objects.COUNTY_MOI_1090820)
-    const projection = d3.geoMercator().center([123, 24]).scale(9000).translate([600, 350])
+    const projection = d3.geoMercator().center([123, 24]).scale(9000).translate([625, 400])
 
     const path = d3.geoPath().projection
 
