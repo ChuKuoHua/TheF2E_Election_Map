@@ -1,7 +1,7 @@
 <template>
   <svg
     id="Taiwan"
-    class="transform translate-x-0 2xl:-translate-x-20 bg-none 2xl:bg-[url('/images/taiwanMapBg.svg')] bg-cover"
+    class="w-full h-full transform translate-x-0 2xl:-translate-x-20 bg-none bg-cover"
   ></svg>
 </template>
 
@@ -33,7 +33,7 @@ const outlyingIslands = ref([
 ])
 
 onMounted(() => {
-  const svg = d3.select('#Taiwan').attr('width', 550).attr('height', 825)
+  const svg = d3.select('#Taiwan').attr('viewBox', '0 0 550 825')
   d3.json('taiwanTopoJSON.json').then((data) => {
     const counties = topojson.feature(data, data.objects.COUNTY_MOI_1090820)
     const projection = d3.geoMercator().center([123, 24]).scale(9000).translate([625, 400])
@@ -103,7 +103,7 @@ watch(
     }
     paths.forEach(function (path) {
       const currentId = path.id
-      path.style.fill = colorList[props.countiesVotingWinnerList[currentId]]
+      path.style.fill = colorList[props.countiesVotingWinnerList[currentId]] || '#B8B8B8'
     })
   }
 )
