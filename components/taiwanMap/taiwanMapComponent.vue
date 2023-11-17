@@ -1,8 +1,5 @@
 <template>
-  <svg
-    id="Taiwan"
-    class="w-full h-full transform translate-x-0 2xl:-translate-x-20 bg-none bg-cover"
-  ></svg>
+  <svg id="Taiwan" class="w-full h-full transform translate-x-0 bg-none bg-cover"></svg>
 </template>
 
 <script setup>
@@ -15,6 +12,7 @@ const props = defineProps({
     required: true
   }
 })
+const emit = defineEmits(['countyEngName'])
 
 const currentCounty = ref('')
 const outlyingIslands = ref([
@@ -48,6 +46,10 @@ onMounted(() => {
       .attr('id', (d) => {
         // 設定id
         return d.properties.COUNTYNAME.split(' ')[0]
+      })
+      .attr('data-engname', (d) => {
+        // 大寫會錯誤
+        return d.properties.COUNTYENG.replace(/ City| County/g, '')
       })
       .on('click', (e) => {
         currentCounty.value = e.target.__data__.properties.COUNTYNAME
@@ -101,9 +103,12 @@ watch(
       electionGroups2: '#62A0D5',
       electionGroups3: '#58AC6F'
     }
+    const isCountyPage = Object.keys(props.countiesVotingWinnerList).length === 1
     paths.forEach(function (path) {
       const currentId = path.id
       path.style.fill = colorList[props.countiesVotingWinnerList[currentId]] || '#B8B8B8'
+      if (isCountyPage && props.countiesVotingWinnerList[currentId])
+        emit('countyEngName', path.dataset.engname || 'Taiwan')
     })
   }
 )

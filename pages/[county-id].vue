@@ -9,23 +9,7 @@
       返回全台統計
     </button>
     <div class="clear-both"></div>
-    <div class="w-3/4 md:w-11/12 m-auto md:mr-0 md:ml-auto py-3 flex justify-between items-center">
-      <div class="w-2/4 md:w-3/6 h-1 bg-main-700 relative">
-        <div class="triangle_icon absolute top-0 left-0 hidden md:block"></div>
-        <h1
-          class="absolute -top-12 lg:-top-16 md:left-24 py-2 bg-dpp w-3/4 md:w-1/4 lg:w-1/5 text-center text-xl text-white tracking-widest"
-        >
-          {{ county }}
-        </h1>
-        <div
-          class="absolute -top-1.5 right-0 bottom-0 rounded-full bg-main-700 h-4 w-4 hidden md:block"
-        ></div>
-      </div>
-      <div class="w-2/4 md:w-1/4 lg:w-1/6">
-        <h2 class="text-4xl text-right md:text-center tracking-widest">TAIWAN</h2>
-      </div>
-      <div class="w-2/6 hidden md:block md:w-1/4 h-1 bg-main-700"></div>
-    </div>
+    <county-taiwan-map-component :county-name="county" />
     <div class="bg-main-800 relative">
       <div class="absolute top-0 right-8">
         <svg width="400" height="300">
@@ -82,6 +66,7 @@ import chartComponent from '@/components/echart/baseChartComponent.vue'
 import pieChartComponent from '@/components/echart/pieChartComponent.vue'
 import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
 import { useDistrictStore } from '@/stores/districtStore.mjs'
+import CountyTaiwanMapComponent from '@/components/taiwanMap/countyTaiwanMapComponent.vue'
 
 const pageLoadingStore = usePageLoadingStore()
 const districtStore = useDistrictStore()

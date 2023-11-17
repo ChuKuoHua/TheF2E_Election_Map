@@ -52,7 +52,8 @@ const chartOptionData = (data) => {
           president: item.name,
           vicePresident: item.subName,
           rate: votesRate,
-          number: data[key][item.id]
+          number: data[key][item.id],
+          electionGroupId: item.id
         })
       })
       countyElectionStore.setCountyVotesData(countyElectionData)

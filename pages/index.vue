@@ -7,7 +7,7 @@
       <home-list-component :nationwide-votes="totalVotes" />
     </div>
     <taiwan-map-component
-      class="max-w-[500px] max-h-[825px] 2xl:bg-[url('/images/taiwanMapBg.svg')]"
+      class="max-w-[500px] max-h-[825px] 2xl:-translate-x-20 2xl:bg-[url('/images/taiwanMapBg.svg')]"
       :counties-voting-winner-list="countiesVotingWinner"
     />
   </div>
