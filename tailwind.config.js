@@ -31,7 +31,7 @@ export default {
           900: '#474747'
         },
         dpp: '#58AC6F',
-        kmt: '#62A0D5',
+        kmt: '#4889C1',
         pfp: '#F2854A'
       },
       fontSize: {

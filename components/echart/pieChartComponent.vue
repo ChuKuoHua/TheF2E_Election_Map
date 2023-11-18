@@ -1,9 +1,9 @@
 <template>
   <div class="mx-10 md:mx-0">
-    <p class="text-center text-main-700">{{ chartTitle }}</p>
+    <p class="text-center text-main-700 tracking-widest">{{ chartTitle }}</p>
     <div :id="props.id" ref="elPieChart" class="w-full lg:h-96 h-64"></div>
     <ul class="md:flex md:justify-center lg:block">
-      <li v-for="item of districtsData" :key="item.president">
+      <li v-for="item of districtsData" :key="item.president" class="tracking-wider">
         <div class="flex justify-center">
           <div class="w-4/5 md:w-full lg:w-2/4 px-3 md:px-8">
             <p
@@ -42,7 +42,7 @@ const chart = ref(null)
 const yAxisData = ref([])
 const color = {
   electionGroups1: '#F2854A',
-  electionGroups2: '#62A0D5',
+  electionGroups2: '#4889C1',
   electionGroups3: '#58AC6F'
 }
 // 取得行政區資料

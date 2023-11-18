@@ -2,7 +2,7 @@
   <div class="hidden md:block">
     <table class="w-full text-sm text-left text-main-700">
       <thead class="text-lg text-white uppercase bg-main-700">
-        <tr class="border-b pr-6">
+        <tr class="border-b pr-6 tracking-wider">
           <th class="px-6 py-3">村里</th>
           <th v-for="item of candidateList" :key="item" class="px-6 py-3 text-center lg:text-left">
             {{ item.name }} / {{ item.subName }}
@@ -13,30 +13,14 @@
         <tr
           v-for="item of currentTownshipList"
           :key="item.name"
-          class="bg-main border-b mb-3 border-main"
+          class="bg-main border-b mb-3 border-main text-lg tracking-wider"
         >
-          <td class="px-6 py-2 text-lg">
+          <td class="px-6 py-2">
             {{ item.name }}
           </td>
-          <td class="px-6 py-2 text-center">
-            <span class="text-xl">
-              {{ sliceRateDecimal(item.dpp)[0] }}
-            </span>
-            .{{ sliceRateDecimal(item.dpp)[1] }} %
-          </td>
-          <td class="px-6 py-2 text-center">
-            <span class="text-xl">
-              {{ sliceRateDecimal(item.jmt)[0] }}
-            </span>
-            .{{ sliceRateDecimal(item.jmt)[1] }} %
-          </td>
-
-          <td class="px-6 py-2 text-center">
-            <span class="text-xl">
-              {{ sliceRateDecimal(item.other)[0] }}
-            </span>
-            .{{ sliceRateDecimal(item.other)[1] }} %
-          </td>
+          <td class="px-6 py-2 text-center">{{ item.dpp }} %</td>
+          <td class="px-6 py-2 text-center">{{ item.jmt }} %</td>
+          <td class="px-6 py-2 text-center">{{ item.other }} %</td>
         </tr>
       </tbody>
     </table>
@@ -46,39 +30,24 @@
       <li
         v-for="item of currentTownshipList"
         :key="item.name"
-        class="border border-main-700 mb-3 p-3"
+        class="border border-main-700 mb-3 p-3 tracking-wider"
       >
         <div class="flex justify-between">
           <p>村里：</p>
           <p class="text-xl">{{ item.name }}</p>
         </div>
-        <div v-for="candidate of candidateList" :key="candidate">
+        <div v-for="candidate of candidateList" :key="candidate" class="text-lg">
           <div v-if="candidate.id === 'electionGroups3'" class="flex justify-between">
             <p>{{ candidate.name }} / {{ candidate.subName }}：</p>
-            <p>
-              <span class="text-lg">
-                {{ sliceRateDecimal(item.dpp)[0] }}
-              </span>
-              .{{ sliceRateDecimal(item.dpp)[1] }} %
-            </p>
+            <p>{{ item.dpp }} %</p>
           </div>
           <div v-else-if="candidate.id === 'electionGroups2'" class="flex justify-between">
             <p>{{ candidate.name }} / {{ candidate.subName }}：</p>
-            <p>
-              <span class="text-lg">
-                {{ sliceRateDecimal(item.jmt)[0] }}
-              </span>
-              .{{ sliceRateDecimal(item.jmt)[1] }} %
-            </p>
+            <p>{{ item.jmt }} %</p>
           </div>
           <div v-else class="flex justify-between">
             <p>{{ candidate.name }} / {{ candidate.subName }}：</p>
-            <p>
-              <span class="text-lg">
-                {{ sliceRateDecimal(item.other)[0] }}
-              </span>
-              .{{ sliceRateDecimal(item.other)[1] }} %
-            </p>
+            <p>{{ item.other }} %</p>
           </div>
         </div>
       </li>
@@ -95,7 +64,7 @@
 <script setup>
 import { useCandidateAndCountyStore } from '@/stores/candidateAndCountyStore.mjs'
 import { useDistrictStore } from '@/stores/districtStore.mjs'
-import { totalHandle, rateHandle, sliceRateDecimal } from '@/utils/tools.mjs'
+import { totalHandle, rateHandle } from '@/utils/tools.mjs'
 
 const districtStore = useDistrictStore()
 const candidateAndCountyStore = useCandidateAndCountyStore()

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p class="mb-1 mr-6 text-right text-white">得票率 (%)</p>
-    <ul v-for="item of countyElectionData" :key="item.president" class="list-none text-white">
-      <li>
+    <p class="mb-1 mr-6 text-right text-white tracking-widest">得票率 (%)</p>
+    <ul class="list-none text-white tracking-widest">
+      <li v-for="item of countyElectionData" :key="item.president">
         <div
           class="px-8 py-3 text-2xl flex justify-between"
           :class="{
@@ -12,7 +12,7 @@
           }"
         >
           <p>{{ item.president }} / {{ item.vicePresident }}</p>
-          <p class="text-2xl">
+          <p class="text-2xl tracking-normal">
             {{ sliceRateDecimal(item.rate)[0] }}
             <span class="text-xl"> .{{ sliceRateDecimal(item.rate)[1] }} </span>
           </p>

@@ -141,7 +141,7 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
           color: textColor
         },
         backgroundColor: 'transparent',
-        fillerColor: '#6AB5EF29'
+        fillerColor: '#62a0d52e'
       }
     ],
     xAxis: [

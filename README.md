@@ -1,5 +1,5 @@
 # THE F2E Election-Map
-Release: v1.1.0
+Release: v1.2.0
 Node: 建議 v16 以上
 
 2023-10-31

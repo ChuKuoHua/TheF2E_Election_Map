@@ -29,7 +29,7 @@ const chart = ref(null)
 const yAxisData = ref([])
 const electionNumberArray = ref([])
 const districtGetter = computed(() => districtStore.districtGetter)
-const color = ['#58AC6F', '#62A0D5', '#F2854A']
+const color = ['#58AC6F', '#4889C1', '#F2854A']
 // 取得候選人資料
 const candidateList = computed(() => candidateAndCountyStore.candidatesGetter)
 
