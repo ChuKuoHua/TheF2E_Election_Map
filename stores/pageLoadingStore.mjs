@@ -1,5 +1,5 @@
 export const usePageLoadingStore = defineStore('pageLoading', () => {
-  const loading = ref(false)
+  const loading = ref(true)
   const appLoading = ref(false)
   const pageLoading = ref(false)
   let loadingStartTime = null

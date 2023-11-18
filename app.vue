@@ -1,6 +1,6 @@
 <template>
   <div :class="[{ 'overflow-hidden max-h-screen': loading }]">
-    <NuxtPage />
+    <NuxtPage :class="[{ 'opacity-0': loading }]" />
     <Transition name="fade">
       <page-loading-component v-show="loading" />
     </Transition>
