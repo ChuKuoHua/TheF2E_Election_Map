@@ -13,7 +13,8 @@ const props = defineProps({
   },
   hoverCountyName: {
     type: String,
-    required: true
+    default: '',
+    required: false
   }
 })
 
