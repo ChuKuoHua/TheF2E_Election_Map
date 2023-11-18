@@ -4,20 +4,18 @@
     <div :id="props.id" ref="elPieChart" class="w-full lg:h-96 h-64"></div>
     <ul class="md:flex md:justify-center lg:block">
       <li v-for="item of districtsData" :key="item.president" class="tracking-wider">
-        <div class="flex justify-center">
-          <div class="w-4/5 md:w-full lg:w-2/4 px-3 md:px-8">
-            <p
-              class="py-1 text-xl border-l-8 mb-3 pl-5"
-              :class="{
-                'border-pfp': item.president === '宋楚瑜',
-                'border-kmt': item.president === '韓國瑜',
-                'border-dpp': item.president === '蔡英文'
-              }"
-            >
-              {{ item.president }} /
-              {{ item.vicePresident }}
-            </p>
-          </div>
+        <div class="mx-auto px-3 md:px-8 w-52 md:w-64">
+          <p
+            class="py-1 text-xl border-l-8 mb-3 pl-5"
+            :class="{
+              'border-pfp': item.president === '宋楚瑜',
+              'border-kmt': item.president === '韓國瑜',
+              'border-dpp': item.president === '蔡英文'
+            }"
+          >
+            {{ item.president }} /
+            {{ item.vicePresident }}
+          </p>
         </div>
       </li>
     </ul>
@@ -83,4 +81,8 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.w-200 {
+  width: 200px;
+}
+</style>

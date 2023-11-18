@@ -1,10 +1,21 @@
-@mixin triangle {
+%absolute-wh-0 {
+  position: absolute;
   width: 0;
   height: 0;
+}
+
+@mixin triangle {
+  @extend %absolute-wh-0;
   border-top: 12px solid transparent;
   border-left: 20px solid #333;
   border-right: 10px solid transparent;
   border-bottom: 12px solid transparent;
-  position: absolute;
   content: '';
+}
+
+@mixin triangle_page {
+  @extend %absolute-wh-0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  top: 5px;
 }

@@ -54,9 +54,16 @@
     </ul>
   </div>
   <div class="mt-3 clear-both text-main-300">
-    <button v-show="page !== 1" type="button" @click="prevPage()">上一頁</button>
-    <button v-show="page !== totalPages" type="button" class="float-right" @click="nextPage()">
-      下一頁
+    <button v-show="page !== 1" type="button" class="relative ml-5" @click="prevPage()">
+      上一頁<i class="prev_icon"></i>
+    </button>
+    <button
+      v-show="page !== totalPages"
+      type="button"
+      class="float-right relative mr-5"
+      @click="nextPage()"
+    >
+      下一頁<i class="next_icon"></i>
     </button>
   </div>
 </template>

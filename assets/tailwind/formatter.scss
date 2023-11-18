@@ -1,9 +1,11 @@
-.formatTitle {
-  @apply mb-2 pb-1 border-b border-main-700
-}
-.flex-between-center {
-  @apply flex justify-between items-center
-}
-.toolbox-icon{
-  @apply px-1 mr-1
+@layer components {
+  .formatTitle {
+    @apply mb-2 pb-1 border-b border-main-700
+  }
+  .flex-between-center {
+    @apply flex justify-between items-center
+  }
+  .toolbox-icon{
+    @apply px-1 mr-1
+  }
 }

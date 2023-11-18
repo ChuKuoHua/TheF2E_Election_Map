@@ -1,3 +1,5 @@
+$gray-300: #8D8D8D;
+
 .triangle_icon {
   top: -10px;
   right: 5px;
@@ -8,9 +10,18 @@
     @include triangle;
   }
   &::before {
-    position: absolute;
     top: -12px;
     right: -65px;
     @include triangle;
   }
+}
+.prev_icon {
+  @include triangle_page;
+  border-right: 10px solid $gray-300;
+  left: -16px;
+}
+.next_icon {
+  @include triangle_page;
+  border-left: 10px solid $gray-300;
+  right: -18px;
 }
