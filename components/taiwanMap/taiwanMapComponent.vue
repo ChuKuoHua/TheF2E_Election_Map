@@ -100,7 +100,7 @@ watch(
     const paths = document.getElementById('Taiwan').querySelectorAll('path')
     const colorList = {
       electionGroups1: '#F2854A',
-      electionGroups2: '#62A0D5',
+      electionGroups2: '#4889C1',
       electionGroups3: '#58AC6F'
     }
     const isCountyPage = Object.keys(props.countiesVotingWinnerList).length === 1
