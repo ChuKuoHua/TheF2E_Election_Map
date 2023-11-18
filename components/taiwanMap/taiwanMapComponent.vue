@@ -10,9 +10,14 @@ const props = defineProps({
   countiesVotingWinnerList: {
     type: Object,
     required: true
+  },
+  hoverCountyName: {
+    type: String,
+    required: true
   }
 })
-const emit = defineEmits(['countyEngName'])
+
+const emit = defineEmits(['countyEngName', 'update:hoverCountyName'])
 
 const currentCounty = ref('')
 const outlyingIslands = ref([
@@ -55,9 +60,11 @@ onMounted(() => {
         currentCounty.value = e.target.__data__.properties.COUNTYNAME
       })
       .on('mouseover', (e) => {
+        emit('update:hoverCountyName', e.target.__data__.properties.COUNTYNAME)
         d3.select(e.target).classed('active', true)
       })
       .on('mouseleave', (e) => {
+        emit('update:hoverCountyName', '')
         d3.select(e.target).classed('active', false)
       })
 
@@ -79,9 +86,11 @@ onMounted(() => {
 
         rect
           .on('mouseenter', () => {
+            emit('update:hoverCountyName', island.COUNTYNAME)
             island.path.classed('active', true)
           })
           .on('mouseleave', () => {
+            emit('update:hoverCountyName', '')
             island.path.classed('active', false)
           })
           .on('click', () => {

@@ -7,16 +7,24 @@
       <home-list-component :nationwide-votes="totalVotes" />
     </div>
     <taiwan-map-component
-      class="max-w-[500px] max-h-[825px] 2xl:-translate-x-20 2xl:bg-[url('/images/taiwanMapBg.svg')]"
+      v-model:hover-county-name="hoverCountyName"
       :counties-voting-winner-list="countiesVotingWinner"
+      class="max-w-[500px] max-h-[825px] 2xl:-translate-x-20 2xl:bg-[url('/images/taiwanMapBg.svg')]"
+    />
+    <county-tool-tip
+      v-show="hoverCountyName"
+      :county-name="hoverCountyName"
+      :county-votes="countyVotes"
     />
   </div>
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
 import HomeListComponent from '@/components/county/homeListComponent.vue'
 import TaiwanMapComponent from '@/components/taiwanMap/taiwanMapComponent.vue'
 import TitleComponent from '@/components/common/titleComponent.vue'
+import CountyToolTip from '@/components/taiwanMap/countyToolTip.vue'
 import { usePageLoadingStore } from '@/stores/pageLoadingStore.mjs'
 import { useCountyElectionStore } from '@/stores/countyElectionStore.mjs'
 import { useCandidateAndCountyStore } from '@/stores/candidateAndCountyStore.mjs'
@@ -26,12 +34,15 @@ import { rateHandle, numberToChinese, removeComma } from '@/utils/tools.mjs'
 const pageLoadingStore = usePageLoadingStore()
 const countyElectionStore = useCountyElectionStore()
 const candidateAndCountyStore = useCandidateAndCountyStore()
+const { countyElectionData } = storeToRefs(countyElectionStore)
 
 useAsyncData(async () => {
   pageLoadingStore.pageLoading = true
   await countyElectionStore.fetchCountyElection('中央')
   pageLoadingStore.pageLoading = false
 })
+
+const hoverCountyName = ref('')
 
 // 總計票數
 const totalVotes = computed(() => {
@@ -70,11 +81,15 @@ const countiesVotingWinner = computed(() => {
   }
   return maxValues
 })
+
+// 某縣市的票數
+const countyVotes = computed(() => {
+  if (!hoverCountyName.value) return {}
+  return countyElectionData.value[hoverCountyName.value] || {}
+})
 </script>
 <style scoped lang="scss">
 .taiwan-page :deep(svg) {
-  //  background-image: url('/images/taiwanMapBg.svg');
-  //  background-size: cover;
   path {
     stroke: white;
   }
