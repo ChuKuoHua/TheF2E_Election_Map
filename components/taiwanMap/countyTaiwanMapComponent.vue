@@ -48,7 +48,7 @@ const countiesVotingWinner = computed(() => {
   if (!countyVotesDataGetter.value.length) return {}
   const result = {}
   // 使用 lodash 的 maxBy 函數找出最大得票率對應的物件
-  const maxRateCandidate = useMaxBy(countyVotesDataGetter.value, 'rate')
+  const maxRateCandidate = useMaxBy(countyVotesDataGetter.value, (item) => parseFloat(item.rate))
   result[`${props.countyName}`] = maxRateCandidate.electionGroupId
   return result
 })

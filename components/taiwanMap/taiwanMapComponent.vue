@@ -108,7 +108,7 @@ watch(
       const currentId = path.id
       path.style.fill = colorList[props.countiesVotingWinnerList[currentId]] || '#B8B8B8'
       if (isCountyPage && props.countiesVotingWinnerList[currentId])
-        emit('countyEngName', path.dataset.engname || 'Taiwan')
+        emit('countyEngName', path.dataset.engname.toUpperCase() || 'Taiwan')
     })
   }
 )
