@@ -1,5 +1,5 @@
 <template>
-  <svg id="Taiwan" class="w-full h-full transform translate-x-0 bg-none bg-cover"></svg>
+  <svg id="Taiwan" class="transform translate-x-0 bg-none bg-cover"></svg>
 </template>
 
 <script setup>
