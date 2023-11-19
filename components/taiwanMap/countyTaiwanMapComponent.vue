@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-3/4 md:w-11/12 m-auto md:mr-0 md:ml-auto py-3 flex justify-between items-center relative z-10 mt-12 mb-6"
+    class="w-3/4 md:w-11/12 md:mr-0 md:ml-auto py-3 flex justify-between items-center relative z-10 mt-12 mb-6"
   >
     <div class="w-2/4 md:w-3/6 h-1 bg-main-700 relative">
       <div class="triangle_icon absolute top-0 left-0 hidden md:block"></div>
@@ -20,7 +20,7 @@
       ></div>
     </div>
     <div class="w-2/4 md:w-1/4 lg:w-1/6">
-      <h2 class="text-4xl text-right md:text-center tracking-widest">
+      <h2 class="text-3xl lg:text-4xl text-right md:text-center tracking-widest">
         {{ countyEngName }}
       </h2>
     </div>

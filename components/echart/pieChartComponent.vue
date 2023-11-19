@@ -4,7 +4,7 @@
     <div :id="props.id" ref="elPieChart" class="w-full lg:h-96 h-64"></div>
     <ul class="md:flex md:justify-center lg:block">
       <li v-for="item of districtsData" :key="item.president" class="tracking-wider">
-        <div class="mx-auto px-3 md:px-8 w-52 md:w-64">
+        <div class="mx-auto px-3 md:px-6 lg:px-8 w-52 md:w-60 lg:w-64">
           <p
             class="py-1 text-xl border-l-8 mb-3 pl-5"
             :class="{

@@ -1,5 +1,15 @@
 <template>
   <div :class="[{ 'overflow-hidden max-h-screen': loading }]">
+    <div class="absolute right-0 bg-main-700">
+      <button type="button" class="p-3" @click="openMenu">
+        <svg class="w-6 h-6 text-white" aria-hidden="true" fill="currentColor" viewBox="0 0 17 14">
+          <path
+            d="M16 2H1a1 1 0 0 1 0-2h15a1 1 0 1 1 0 2Zm0 6H1a1 1 0 0 1 0-2h15a1
+            1 0 1 1 0 2Zm0 6H1a1 1 0 0 1 0-2h15a1 1 0 0 1 0 2Z"
+          ></path>
+        </svg>
+      </button>
+    </div>
     <NuxtPage :class="[{ 'opacity-0': loading }]" />
     <Transition name="fade">
       <page-loading-component v-show="loading" />
@@ -19,7 +29,10 @@ import PageLoadingComponent from '@/components/common/pageLoadingComponent.vue'
 const pageLoadingStore = usePageLoadingStore()
 const { loading } = storeToRefs(pageLoadingStore)
 const candidateAndCountyStore = useCandidateAndCountyStore()
-
+const navbarRef = ref(null)
+const openMenu = () => {
+  navbarRef.value.onClick()
+}
 useAsyncData(async () => {
   pageLoadingStore.appLoading = true
   await candidateAndCountyStore.fetchCandidatesAndCounties()

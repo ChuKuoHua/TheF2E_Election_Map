@@ -1,17 +1,20 @@
 <template>
   <div
-    id="drawer-example"
-    class="fixed top-0 right-0 z-40 h-screen p-4 bg-main-700 text-white w-lg transition-all duration-500 ease-in-out overflow-y-auto"
+    class="fixed top-0 right-0 bottom-0 w-full h-full bg-main-700 opacity-20 z-30"
+    :class="{ hidden: isClose }"
+    @click="onClick"
+  ></div>
+  <div
+    class="fixed top-0 right-0 bottom-0 z-40 p-2 md:p-4 bg-main-700 text-white w-lg transition-all duration-500 ease-in-out overflow-y-auto"
     tabindex="-1"
-    aria-labelledby="drawer-label"
     :class="{ '-right_640': isClose }"
   >
-    <div class="px-16">
+    <div class="px-3 md:px-16">
       <button
         type="button"
         data-drawer-hide="drawer-example"
         aria-controls="drawer-example"
-        class="opacity-60 bg-transparent hover:opacity-100 rounded-full text-lg w-8 h-8 inline-flex items-center justify-center border mt-12 mb-10 mr-1.5 float-right"
+        class="opacity-60 bg-transparent hover:opacity-100 rounded-full text-lg w-8 h-8 inline-flex items-center justify-center border mt-3 md:mt-12 mb-5 md:mb-10 mr-1.5 float-right"
         @click="onClick"
       >
         <svg
@@ -31,16 +34,15 @@
         </svg>
         <span class="sr-only">Close menu</span>
       </button>
-      <div class="flex flex-wrap justify-end clear-both">
-        <div
+      <div class="flex flex-wrap justify-between md:justify-end clear-both">
+        <NuxtLink
           v-for="item of countiesList"
           :key="item"
-          class="w-36 text-center m-2 border border-white text-xl"
+          :to="`/${item}`"
+          class="w-36 text-center p-2 m-2 border border-white text-xl opacity-60 bg-transparent hover:opacity-100"
         >
-          <button type="button" class="w-full p-2 opacity-60 bg-transparent hover:opacity-100">
-            {{ item }}
-          </button>
-        </div>
+          {{ item }}
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -49,6 +51,7 @@
 <script setup>
 import { useCandidateAndCountyStore } from '@/stores/candidateAndCountyStore.mjs'
 
+const route = useRoute()
 const candidateAndCountyStore = useCandidateAndCountyStore()
 const countiesList = computed(() => candidateAndCountyStore.counties)
 const isClose = ref(true)
@@ -58,6 +61,18 @@ const onClick = () => {
 }
 
 defineExpose({ onClick })
+
+watch(
+  () => route.fullPath,
+  () => {
+    isClose.value = true
+  },
+  {
+    immediate: true,
+    deep: true
+  }
+)
+
 onMounted(() => {})
 </script>
 
@@ -65,7 +80,14 @@ onMounted(() => {})
 .w-lg {
   width: 640px;
 }
+
 .-right_640 {
-  right: -640px;
+  right: -999px;
+}
+
+@media (max-width: 640px) {
+  .w-lg {
+    width: 100%;
+  }
 }
 </style>
