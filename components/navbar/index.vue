@@ -1,11 +1,11 @@
 <template>
   <div
-    class="fixed top-0 right-0 bottom-0 w-full h-full bg-main-700 opacity-20 z-30"
+    class="fixed top-0 right-0 bottom-0 w-full h-full bg-main-800 opacity-20 z-30"
     :class="{ hidden: isClose }"
     @click="onClick"
   ></div>
   <div
-    class="fixed top-0 right-0 bottom-0 z-40 p-2 md:p-4 bg-main-700 text-white w-lg transition-all duration-500 ease-in-out overflow-y-auto"
+    class="fixed top-0 right-0 bottom-0 z-40 p-2 md:p-4 bg-main-800 text-white w-lg transition-all duration-500 ease-in-out overflow-y-auto"
     tabindex="-1"
     :class="{ '-right_640': isClose }"
   >
