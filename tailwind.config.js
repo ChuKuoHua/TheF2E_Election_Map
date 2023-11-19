@@ -41,5 +41,10 @@ export default {
       }
     }
   },
-  plugins: []
+  plugins: [],
+  safelist: [
+    {
+      pattern: /(bg|text|border)-(dpp|kmt|pfp)/
+    }
+  ]
 }
