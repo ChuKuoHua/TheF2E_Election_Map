@@ -1,6 +1,6 @@
 <template>
   <div :class="[{ 'overflow-hidden max-h-screen': loading }]">
-    <div class="absolute right-0 bg-main-800">
+    <div class="absolute right-0 lg:right-auto lg:left-0 bg-main-800">
       <button type="button" class="p-3" @click="openMenu">
         <svg class="w-6 h-6 text-white" aria-hidden="true" fill="currentColor" viewBox="0 0 17 14">
           <path

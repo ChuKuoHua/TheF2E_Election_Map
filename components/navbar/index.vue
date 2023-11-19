@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed top-0 right-0 bottom-0 w-full h-full bg-main-800 opacity-20 z-30"
+    class="fixed top-0 bottom-0 w-full h-full bg-main-800 opacity-20 z-30"
     :class="{ hidden: isClose }"
     @click="onClick"
   ></div>
