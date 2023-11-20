@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      class="border border-main-700 rounded-lg hover:text-white tracking-widest float-left lg:float-right p-3 mt-6 mb-10 md:my-6 ml-6 lg:top-6 md:mr-24 lg:mr-20 flex items-center comeback"
+      class="border border-main-700 rounded-lg hover:text-white tracking-widest float-left lg:float-right p-3 mt-6 mb-10 md:my-6 ml-6 lg:top-6 md:mr-24 lg:mr-16 flex items-center comeback"
       type="button"
       @click="comeback"
     >
@@ -28,7 +28,7 @@
         </svg>
       </div>
       <div class="pt-20 relative z-30">
-        <div class="w-full lg:w-5/6 mx-auto flex flex-wrap">
+        <div class="w-full md:w-5/6 lg:w-11/12 mx-auto flex flex-wrap">
           <div class="mb-3 w-full lg:w-3/5 md:mx-6 lg:mx-0">
             <chartComponent :id="'districtChart'" :type="'district'" />
           </div>
@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full lg:w-5/6 mx-auto flex flex-wrap mt-10 relative z-30">
+    <div class="w-full md:w-5/6 lg:w-11/12 mx-auto flex flex-wrap mt-10 relative z-30">
       <div class="w-full lg:w-2/5 mx-6 lg:mx-0">
         <pieChartComponent :id="'districtPieChart'" />
       </div>

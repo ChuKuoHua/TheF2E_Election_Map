@@ -9,7 +9,7 @@
     tabindex="-1"
     :class="{ '-right_640': isClose }"
   >
-    <div class="px-3 md:px-16">
+    <div class="px-3 lg:px-16">
       <button
         type="button"
         data-drawer-hide="drawer-example"
@@ -17,13 +17,7 @@
         class="opacity-60 bg-transparent hover:opacity-100 rounded-full text-lg w-8 h-8 inline-flex items-center justify-center border mt-3 md:mt-12 mb-5 md:mb-10 mr-1.5 float-right"
         @click="onClick"
       >
-        <svg
-          class="w-4 h-4"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 14"
-        >
+        <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 14 14">
           <path
             stroke="currentColor"
             stroke-linecap="round"
@@ -34,12 +28,12 @@
         </svg>
         <span class="sr-only">Close menu</span>
       </button>
-      <div class="flex flex-wrap justify-between md:justify-end clear-both">
+      <div class="flex flex-wrap justify-center md:justify-end clear-both">
         <NuxtLink
           v-for="item of countiesList"
           :key="item"
           :to="`/${item}`"
-          class="w-36 text-center p-2 m-2 border border-white text-xl opacity-60 bg-transparent hover:opacity-100"
+          class="w-32 lg:w-36 text-center p-2 m-2 border border-white text-xl opacity-60 bg-transparent hover:opacity-100"
         >
           {{ item }}
         </NuxtLink>
