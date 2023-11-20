@@ -19,12 +19,12 @@
         class="absolute -top-1.5 right-0 bottom-0 rounded-full bg-main-700 h-4 w-4 hidden md:block"
       ></div>
     </div>
-    <div class="w-2/4 md:w-1/4 lg:w-1/6">
+    <div class="w-2/4 md:w-2/6">
       <h2 class="text-3xl lg:text-4xl text-right md:text-center tracking-widest">
         {{ countyEngName }}
       </h2>
     </div>
-    <div class="w-2/6 hidden md:block md:w-1/4 h-1 bg-main-700"></div>
+    <div class="md:w-1/6 hidden md:block h-1 bg-main-700"></div>
   </div>
 </template>
 
