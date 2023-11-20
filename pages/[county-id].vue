@@ -1,9 +1,7 @@
 <template>
   <div>
     <button
-      class="border border-main-700 rounded-lg hover:text-white
-        tracking-widest float-left lg:float-right p-3 mt-6 mb-10 md:my-6
-        ml-6 lg:top-6 md:mr-24 lg:mr-20 flex items-center comeback"
+      class="border border-main-700 rounded-lg hover:text-white tracking-widest float-left lg:float-right p-3 mt-6 mb-10 md:my-6 ml-6 lg:top-6 md:mr-24 lg:mr-20 flex items-center comeback"
       type="button"
       @click="comeback"
     >
