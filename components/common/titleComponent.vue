@@ -1,6 +1,6 @@
 <template>
   <section
-    class="relative text-main-600 flex flex-wrap content-center items-end gap-5 md:gap-8 border-b-4 border-solid border-main-600 mb-4 pb-2"
+    class="relative text-main-600 flex flex-wrap content-center items-end border-b-4 border-solid border-main-600 mb-4 pb-2 gap-5"
   >
     <div class="text-[80px] md:text-[130px] leading-none">2020</div>
     <div class="text-h1 tracking-widest">

@@ -17,8 +17,8 @@
         <div
           class="hidden 2xl:block absolute -z-[1] scale-110 w-full h-full border-2 border-solid rounded-full border-white"
         >
-          <div class="white-circle right-[-7px] top-1/2"></div>
-          <div class="white-circle top-[-7px] right-1/2"></div>
+          <div class="white-circle right-[-7px]" style="top: calc(50% - 7px)"></div>
+          <div class="white-circle top-[-7px]" style="right: calc(50% - 7px)"></div>
         </div>
         <taiwan-map-component
           v-model:hover-county-name="hoverCountyName"
