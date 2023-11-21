@@ -9,3 +9,9 @@
 body {
   font-weight: bold;
 }
+
+@layer components {
+  .white-circle {
+    @apply absolute w-3 h-3 bg-white rounded-full
+  }
+}

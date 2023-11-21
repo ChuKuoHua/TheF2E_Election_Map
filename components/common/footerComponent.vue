@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-main-700 text-white py-14 tracking-widest">
+  <footer class="bg-main-700 text-white py-14 tracking-widest relative z-0">
     <div class="flex justify-between flex-wrap items-center w-3/4 mx-auto">
       <div class="w-full lg:w-3/6 text-center mb-10 lg:mb-0">
         <p>The F2E <span class="text-2xl">5</span>th 前端 & UI 修練精神時光屋</p>

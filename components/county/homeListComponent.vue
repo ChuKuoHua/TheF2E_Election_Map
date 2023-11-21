@@ -1,5 +1,5 @@
 <template>
-  <div v-if="nationwideVotes.length" class="flex justify-center h-fit pt-16">
+  <div v-if="nationwideVotes.length" class="flex justify-center h-fit pt-11">
     <div class="hidden md:flex flex-col-reverse gap-4">
       <div
         v-for="(item, index) in nationwideVotes"
