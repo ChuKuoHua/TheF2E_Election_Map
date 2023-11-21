@@ -42,6 +42,7 @@ export function useSetBaseChart(dom, title, xAxisData, yAxisData, zoomShow = fal
   if (!myChart) {
     myChart = init(dom)
   }
+  myChart.resize()
   const districtStore = useDistrictStore()
   const textColor = 'white'
   const setSeries = (data) => {

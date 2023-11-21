@@ -21,6 +21,7 @@ export function useSetPieChart(dom, title, axisData) {
   if (!myChart) {
     myChart = init(dom)
   }
+  myChart.resize()
   const textColor = '#344340'
   const setSeries = (data) => {
     const series = []

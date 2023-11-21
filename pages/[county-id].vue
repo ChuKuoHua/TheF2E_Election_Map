@@ -30,7 +30,7 @@
       <div class="pt-20 relative z-30">
         <div class="w-full md:w-5/6 lg:w-11/12 mx-auto flex flex-wrap">
           <div class="mb-3 w-full lg:w-3/5 md:mx-6 lg:mx-0">
-            <chartComponent :id="'districtChart'" :type="'district'" />
+            <chartComponent :id="'districtChart'" ref="baseChartRef" :width="windowWidth" />
           </div>
           <div class="w-full lg:w-2/5 px-6 lg:px-3">
             <countyListComponent />
@@ -40,7 +40,7 @@
     </div>
     <div class="w-full md:w-5/6 lg:w-11/12 mx-auto flex flex-wrap mt-10 relative z-30">
       <div class="w-full lg:w-2/5 mx-6 lg:mx-0">
-        <pieChartComponent :id="'districtPieChart'" />
+        <pieChartComponent :id="'districtPieChart'" ref="pieChartRef" :width="windowWidth" />
       </div>
       <div class="w-full lg:w-3/5 px-4 lg:px-1 mb-5 lg:mb-3">
         <div class="py-3 border border-white flex items-center justify-between">
@@ -74,7 +74,9 @@ const router = useRouter()
 const route = useRoute()
 const county = ref(route.params.countyid)
 const district = computed(() => districtStore.districtGetter)
-
+const windowWidth = ref(0)
+const baseChartRef = ref(null)
+const pieChartRef = ref(null)
 const comeback = () => {
   router.push({ path: `/` })
 }
@@ -99,8 +101,15 @@ useAsyncData(
     watch: [district]
   }
 )
+const handleResize = () => {
+  windowWidth.value = window.innerWidth
+  baseChartRef.value.handleResize(windowWidth.value)
+  pieChartRef.value.handleResize(windowWidth.value)
+}
 
-onMounted(() => {})
+onMounted(() => {
+  window.addEventListener('resize', handleResize)
+})
 </script>
 
 <style lang="scss" scoped>

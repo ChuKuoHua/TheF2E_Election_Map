@@ -47,6 +47,7 @@ const color = {
 const districtsData = computed(() => districtStore.votesGetter)
 const districtGetter = computed(() => districtStore.districtGetter)
 const chartTitle = ref('')
+const w = ref(0)
 
 const getData = () => {
   chartTitle.value = `${county.value}${districtGetter.value}`
@@ -69,11 +70,23 @@ const getData = () => {
   // echart 生成圖表
   chart.value = useSetPieChart(elPieChart.value, chartTitle.value, yAxisData.value)
 }
-
 watch([districtsData, districtGetter], () => {
   getData()
 })
-
+// 監聽視窗寬度
+const handleResize = (width) => {
+  w.value = width
+}
+watch(
+  w,
+  () => {
+    getData()
+  },
+  {
+    deep: true
+  }
+)
+defineExpose({ handleResize })
 onMounted(() => {
   if (Object.keys(districtsData.value).length > 0) {
     getData()

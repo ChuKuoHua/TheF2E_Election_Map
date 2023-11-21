@@ -14,10 +14,6 @@ const props = defineProps({
   id: {
     type: String,
     required: true
-  },
-  type: {
-    type: String,
-    required: true
   }
 })
 const candidateAndCountyStore = useCandidateAndCountyStore()
@@ -32,8 +28,8 @@ const districtGetter = computed(() => districtStore.districtGetter)
 const color = ['#58AC6F', '#4889C1', '#F2854A']
 // 取得候選人資料
 const candidateList = computed(() => candidateAndCountyStore.candidatesGetter)
-
 const router = useRouter()
+const w = ref(0)
 
 // NOTE 整理圖表資料
 const chartOptionData = (data) => {
@@ -91,7 +87,20 @@ const getData = async () => {
 watch(districtGetter, () => {
   getData()
 })
-
+// 監聽視窗寬度
+const handleResize = (width) => {
+  w.value = width
+}
+watch(
+  w,
+  () => {
+    getData()
+  },
+  {
+    deep: true
+  }
+)
+defineExpose({ handleResize })
 onMounted(() => {
   if (Object.keys(districtGetter.value).length > 0) {
     getData()
