@@ -101,15 +101,14 @@ useAsyncData(
     watch: [district]
   }
 )
-const handleResize = () => {
+const chartResizeHandle = () => {
   windowWidth.value = window.innerWidth
-  baseChartRef.value.handleResize(windowWidth.value)
-  pieChartRef.value.handleResize(windowWidth.value)
+  baseChartRef.value?.handleResize(windowWidth.value)
+  pieChartRef.value?.handleResize(windowWidth.value)
 }
 
-onMounted(() => {
-  window.addEventListener('resize', handleResize)
-})
+onMounted(() => window.addEventListener('resize', chartResizeHandle))
+onUnmounted(() => window.addEventListener('resize', chartResizeHandle))
 </script>
 
 <style lang="scss" scoped>

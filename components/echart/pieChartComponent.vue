@@ -75,7 +75,7 @@ watch([districtsData, districtGetter], () => {
 })
 // 監聽視窗寬度
 const handleResize = (width) => {
-  w.value = width
+  w.value = width || window.innerWidth
 }
 watch(
   w,
