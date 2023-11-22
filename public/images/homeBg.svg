@@ -1,65 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1115" height="1107" viewBox="0 0 1115 1107">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="682" height="1139" viewBox="0 0 682 1139">
   <defs>
     <clipPath id="clip-path">
-      <rect id="Rectangle_904" data-name="Rectangle 904" width="1115" height="1107" transform="translate(805)" fill="#fff" stroke="#707070" stroke-width="1"/>
-    </clipPath>
-    <clipPath id="clip-path-2">
-      <rect id="Rectangle_906" data-name="Rectangle 906" width="288" height="268" transform="translate(1391)" fill="none" stroke="#707070" stroke-width="1"/>
-    </clipPath>
-    <clipPath id="clip-path-3">
       <circle id="Ellipse_3205" data-name="Ellipse 3205" cx="144" cy="144" r="144" transform="translate(0 0.172)" fill="#3b4543" stroke="#707070" stroke-width="1"/>
     </clipPath>
-    <clipPath id="clip-path-4">
-      <rect id="Rectangle_924" data-name="Rectangle 924" width="278" height="430" transform="translate(1642 677)" fill="#fff" stroke="#707070" stroke-width="1"/>
-    </clipPath>
-    <clipPath id="clip-path-5">
+    <clipPath id="clip-path-2">
       <circle id="Ellipse_3207" data-name="Ellipse 3207" cx="220.5" cy="220.5" r="220.5" transform="translate(1632 678)" fill="#3b4543"/>
     </clipPath>
   </defs>
-  <g id="首頁圖_文字" data-name="首頁圖+文字" transform="translate(-805)">
-    <g id="IMG_首頁三角形">
-      <g id="IMG_首頁背景圖">
-        <g id="Mask_Group_8" data-name="Mask Group 8" clip-path="url(#clip-path)">
-          <rect id="Rectangle_832" data-name="Rectangle 832" width="1992" height="1015" rx="94" transform="translate(1363.145 -914.597) rotate(45)" fill="#2c3735"/>
-        </g>
-      </g>
-    </g>
-    <g id="IMG_背景插圖">
-      <g id="Mask_Group_9" data-name="Mask Group 9" clip-path="url(#clip-path-2)">
-        <g id="Group_1537" data-name="Group 1537" transform="translate(22 -95.172)">
-          <g id="Mask_Group_5" data-name="Mask Group 5" transform="translate(1369 75)" clip-path="url(#clip-path-3)">
-            <g id="Group_1477" data-name="Group 1477" transform="translate(140.391 -125.016) rotate(45)">
-              <rect id="Rectangle_858" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(0 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-2" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(24.93 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-3" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(49.86 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-4" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(74.79 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-5" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(99.72 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-6" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(124.65 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-7" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(149.58 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-8" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(174.51 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-9" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(199.44 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-10" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(224.37 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-11" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(249.3 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-12" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(274.23 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-13" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(299.16 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-14" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(324.09 0)" fill="#3b4543"/>
-              <rect id="Rectangle_858-15" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(349.02 0)" fill="#3b4543"/>
-            </g>
+  <g id="首頁圖檔" transform="translate(-1391 20)">
+    <g id="Group_1540" data-name="Group 1540">
+      <g id="Group_1537" data-name="Group 1537" transform="translate(22 -95.172)">
+        <g id="Mask_Group_5" data-name="Mask Group 5" transform="translate(1369 75)" clip-path="url(#clip-path)">
+          <g id="Group_1477" data-name="Group 1477" transform="translate(140.391 -125.016) rotate(45)">
+            <rect id="Rectangle_858" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(0 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-2" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(24.93 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-3" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(49.86 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-4" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(74.79 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-5" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(99.72 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-6" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(124.65 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-7" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(149.58 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-8" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(174.51 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-9" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(199.44 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-10" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(224.37 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-11" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(249.3 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-12" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(274.23 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-13" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(299.16 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-14" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(324.09 0)" fill="#3b4543"/>
+            <rect id="Rectangle_858-15" data-name="Rectangle 858" width="12.802" height="399.554" transform="translate(349.02 0)" fill="#3b4543"/>
           </g>
         </g>
       </g>
-    </g>
-    <g id="IMG_背景插圖-2" data-name="IMG_背景插圖">
-      <g id="Mask_Group_11" data-name="Mask Group 11" clip-path="url(#clip-path-4)">
-        <g id="Mask_Group_10" data-name="Mask Group 10" clip-path="url(#clip-path-5)">
-          <path id="Intersection_5" data-name="Intersection 5" d="M9492.531-12122.8l22.568-22.568v27.074l-9.031,9.031Zm-26.361-26.361,48.93-48.928v27.07l-35.394,35.394Zm-26.361-26.361,75.291-75.291v27.073l-61.754,61.754Zm-26.36-26.361,101.651-101.651v27.074l-88.114,88.114Zm-26.362-26.361,128.014-128.015v27.074l-114.477,114.477Zm-26.36-26.361,154.374-154.374v27.077l-140.836,140.836Zm-26.361-26.36,180.735-180.734v27.073l-167.2,167.2ZM9308-12307.333l207.1-207.1v27.073L9321.539-12293.8Zm-26.358-26.359,233.456-233.459v27.074l-219.921,219.921Zm-26.362-26.361,217.868-217.869h27.074l-231.405,231.405Zm-26.362-26.362,191.506-191.507H9447.5l-205.043,205.043Zm-26.36-26.36,165.146-165.146h27.073L9216.1-12399.238Z" transform="translate(-7595.101 13177.922)" fill="#3b4543"/>
+      <g id="Mask_Group_10" data-name="Mask Group 10" clip-path="url(#clip-path-2)">
+        <g id="Group_1539" data-name="Group 1539" transform="translate(1857.923 514.68) rotate(45)">
+          <rect id="Rectangle_908" data-name="Rectangle 908" width="19.144" height="597.493" transform="translate(0 0)" fill="#3b4543"/>
+          <rect id="Rectangle_909" data-name="Rectangle 909" width="19.144" height="597.493" transform="translate(37.28 0)" fill="#3b4543"/>
+          <rect id="Rectangle_910" data-name="Rectangle 910" width="19.144" height="597.493" transform="translate(74.561 0)" fill="#3b4543"/>
+          <rect id="Rectangle_911" data-name="Rectangle 911" width="19.144" height="597.493" transform="translate(111.841 0)" fill="#3b4543"/>
+          <rect id="Rectangle_912" data-name="Rectangle 912" width="19.144" height="597.493" transform="translate(149.121 0)" fill="#3b4543"/>
+          <rect id="Rectangle_913" data-name="Rectangle 913" width="19.144" height="597.493" transform="translate(186.402 0)" fill="#3b4543"/>
+          <rect id="Rectangle_914" data-name="Rectangle 914" width="19.144" height="597.493" transform="translate(223.682 0)" fill="#3b4543"/>
+          <rect id="Rectangle_915" data-name="Rectangle 915" width="19.144" height="597.493" transform="translate(260.962 0)" fill="#3b4543"/>
+          <rect id="Rectangle_916" data-name="Rectangle 916" width="19.144" height="597.493" transform="translate(298.243 0)" fill="#3b4543"/>
+          <rect id="Rectangle_917" data-name="Rectangle 917" width="19.144" height="597.493" transform="translate(335.523 0)" fill="#3b4543"/>
+          <rect id="Rectangle_918" data-name="Rectangle 918" width="19.144" height="597.493" transform="translate(372.803 0)" fill="#3b4543"/>
+          <rect id="Rectangle_919" data-name="Rectangle 919" width="19.144" height="597.493" transform="translate(410.084 0)" fill="#3b4543"/>
+          <rect id="Rectangle_920" data-name="Rectangle 920" width="19.144" height="597.493" transform="translate(447.364 0)" fill="#3b4543"/>
+          <rect id="Rectangle_921" data-name="Rectangle 921" width="19.144" height="597.493" transform="translate(484.644 0)" fill="#3b4543"/>
+          <rect id="Rectangle_922" data-name="Rectangle 922" width="19.144" height="597.493" transform="translate(521.925 0)" fill="#3b4543"/>
         </g>
       </g>
     </g>
-    <g id="首頁文字">
-      <text id="TAIWAN" transform="translate(1761 385) rotate(90)" fill="#fff" font-size="65" font-family="NotoSansCJKtc-Bold, Noto Sans CJK TC" font-weight="700" letter-spacing="0.1em" opacity="0.24"><tspan x="-283" y="0">TAIWAN</tspan></text>
-      <text id="_2020" data-name="2020" transform="translate(1761 600) rotate(90)" fill="#fff" font-size="65" font-family="NotoSansCJKtc-Bold, Noto Sans CJK TC" font-weight="700" letter-spacing="0.1em" opacity="0.24"><tspan x="-172" y="0">2020</tspan></text>
-      <line id="Line_49" data-name="Line 49" y1="258" transform="translate(1787 630)" fill="none" stroke="#64706d" stroke-width="3"/>
-    </g>
+    <text id="TAIWAN" transform="translate(1761 385) rotate(90)" fill="#fff" font-size="65" font-family="NotoSansCJKtc-Bold, Noto Sans CJK TC" font-weight="700" letter-spacing="0.1em" opacity="0.24"><tspan x="-283.14" y="0">TAIWAN</tspan></text>
+    <text id="_2020" data-name="2020" transform="translate(1761 600) rotate(90)" fill="#fff" font-size="65" font-family="NotoSansCJKtc-Bold, Noto Sans CJK TC" font-weight="700" letter-spacing="0.1em" opacity="0.24"><tspan x="-172.64" y="0">2020</tspan></text>
+    <line id="Line_49" data-name="Line 49" y1="258" transform="translate(1787 630)" fill="none" stroke="#64706d" stroke-width="3"/>
   </g>
 </svg>

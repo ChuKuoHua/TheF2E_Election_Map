@@ -1,21 +1,37 @@
 <template>
   <div
-    class="bg-[#F6F6F6] min-h-screen taiwan-page flex items-center justify-center flex-wrap gap-8 py-10 bg-none 2xl:bg-[url('/images/homeBg.svg')] bg-contain bg-no-repeat bg-right"
+    class="relative z-0 bg-none 2xl:bg-[url('/images/homeBg.svg?v=2')] bg-contain bg-no-repeat bg-[75vw] bg-main-800"
   >
-    <div>
-      <title-component />
-      <home-list-component :nationwide-votes="totalVotes" />
+    <div
+      class="pt-[80px] pb-[40px] flex-col 2xl:flex-row bg-[#F6F6F6] 2xl:bg-transparent 2xl:bg-[linear-gradient(45deg,_#F6F6F6_70%,_transparent_70%)] min-h-screen taiwan-page flex items-center justify-center flex-wrap"
+    >
+      <div class="mr-0 2xl:-mr-6 transform -translate-y-10">
+        <title-component class="px-5 2xl:px-0" />
+        <home-list-component
+          class="pr-0 2xl:pr-24"
+          style="margin: 0"
+          :nationwide-votes="totalVotes"
+        />
+      </div>
+      <div style="max-width: 525px; max-height: 785px" class="w-full h-full relative">
+        <div
+          class="hidden 2xl:block absolute -z-[1] scale-110 w-full h-full border-2 border-solid rounded-full border-white"
+        >
+          <div class="white-circle right-[-7px]" style="top: calc(50% - 7px)"></div>
+          <div class="white-circle top-[-7px]" style="right: calc(50% - 7px)"></div>
+        </div>
+        <taiwan-map-component
+          v-model:hover-county-name="hoverCountyName"
+          :counties-voting-winner-list="countiesVotingWinner"
+          class="w-full h-full bg-[#F6F6F6] border-none 2xl:border-solid border-4 rounded-full border-main-900"
+        />
+      </div>
+      <county-tool-tip
+        v-show="hoverCountyName"
+        :county-name="hoverCountyName"
+        :county-votes="countyVotes"
+      />
     </div>
-    <taiwan-map-component
-      v-model:hover-county-name="hoverCountyName"
-      :counties-voting-winner-list="countiesVotingWinner"
-      class="max-w-[500px] max-h-[825px] 2xl:-translate-x-20 2xl:bg-[url('/images/taiwanMapBg.svg')]"
-    />
-    <county-tool-tip
-      v-show="hoverCountyName"
-      :county-name="hoverCountyName"
-      :county-votes="countyVotes"
-    />
   </div>
 </template>
 
