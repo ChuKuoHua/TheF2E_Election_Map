@@ -1,7 +1,7 @@
 # 2023 F2E - 2020 總統大選
 線上網址：https://thef2e-election-map-sky.onrender.com/
 
-![S__1638747](https://hackmd.io/_uploads/ryV0-LdVa.jpg)
+![image](https://hackmd.io/_uploads/HypP1dj46.png)
 
 ## 作品說明
 * [The F2E 2023 第二關卡-總統即時開票全台地圖參賽作品。](https://2023.thef2e.com/news)
