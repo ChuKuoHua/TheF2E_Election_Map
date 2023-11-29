@@ -4,7 +4,7 @@
       <tr class="border-b border-white text-left tracking-wider">
         <th scope="col" class="px-3 md:px-6 py-3">候選人</th>
         <th scope="col" class="px-3 md:px-6 py-3">得票數</th>
-        <th scope="col" class="px-3 md:px-6 py-3">得票率(%)</th>
+        <th scope="col" class="px-3 md:px-6 py-3">得票率</th>
       </tr>
     </thead>
     <tbody>

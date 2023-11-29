@@ -4,7 +4,7 @@
       <thead class="text-lg text-white uppercase bg-main-700">
         <tr class="border-b pr-6 tracking-wider">
           <th class="px-6 py-3">村里</th>
-          <th v-for="item of candidateList" :key="item" class="px-6 py-3 text-center lg:text-left">
+          <th v-for="item of candidateList" :key="item" class="px-6 py-3 text-center">
             {{ item.name }} / {{ item.subName }}
           </th>
         </tr>
